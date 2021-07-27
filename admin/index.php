@@ -58,10 +58,6 @@ $(document).ready(function(){
              if (feedback=='ok') {
               window.location = "dashboard.php";
              }
-             else{
-             
-              alert(feedback);
-             }
            }
           });
        }

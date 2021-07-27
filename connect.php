@@ -1,6 +1,6 @@
 <?php
 
-$dsn='mysql:host=localhost;dbname=eleven_one'; // the database connection string
+$dsn='mysql:host=localhost;dbname=hospital'; // the database connection string
 $user='root';                            // the user name of the php myadmin
 $pass='';                                // password of php myadmin 
 $option=array(

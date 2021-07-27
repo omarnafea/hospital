@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['migna_user_id'])){
+if(!isset($_SESSION['user_id'])){
   header("location:../index.php");
   exit();
 }
@@ -11,8 +11,8 @@ if(isset($_POST['action'])){
 if ($_POST['action']=='active') {
   $statement = $con->prepare(
    "UPDATE users 
-    SET  active='yes'
-    WHERE user_id = :user_id");
+    SET  is_active= 1
+    WHERE id = :user_id");
   $result = $statement->execute(
    array(
     ':user_id'           => $_POST["user_id"]
@@ -20,7 +20,7 @@ if ($_POST['action']=='active') {
   );
   if(!empty($result))
   {
-   echo 'User DeActivated';
+   echo 'User Activated';
   
   }
  
@@ -31,8 +31,8 @@ if ($_POST['action']=='deactive') {
 
   $statement = $con->prepare(
    "UPDATE users 
-    SET  active='no'
-    WHERE user_id = :user_id");
+    SET  is_active= 0
+    WHERE id = :user_id");
   $result = $statement->execute(
    array(
     ':user_id'           => $_POST["user_id"]

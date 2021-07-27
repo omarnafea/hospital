@@ -21,9 +21,9 @@ $page=$_SESSION['page'];
         <li class="list-group-item pagelink <?php if($page=='home_slider'){echo 'active';}?>">
             <a href="../home_slider"><i class="fas fa-photo-video"></i> Home Slider</a> 
         </li>
-       
+
         <li class="list-group-item pagelink <?php if($page=='projects_category'){echo 'active';}?>">
-        <a href="../projects_category"> <i class="fas fa-sitemap"></i> Projects Category</a>
+            <a href="../manage_users"> <i class="fas fa-users"></i> Manage Users</a>
         </li>
         <li class="list-group-item pagelink <?php if($page=='manage_projects'){echo 'active';}?>">
          <a href="../manage_projects"><i class="fas fa-tasks"></i>     Manege Projects</a>

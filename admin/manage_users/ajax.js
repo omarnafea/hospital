@@ -41,6 +41,16 @@ $(window).resize(function() {
 
  $(document).on('submit', '#user_add_form', function(event){
   event.preventDefault();
+
+  if($("#clinic_id").val() === '-1'){
+   alert('Please select a clinic');
+   return false;
+  }
+  if($("#privilege_id").val() === '-1'){
+   alert('Please select a privilege');
+   return false;
+  }
+
    $.ajax({
     url:"insert_user.php",
     method:'POST',

@@ -1,9 +1,23 @@
 <?php
 session_start();
-if(!isset($_SESSION['migna_user_id'])){
+if(!isset($_SESSION['user_id'])){
   header("location:../index.php");
   exit();
 }
+
+include('../connect.php');
+
+$statement = $con->prepare("select * from clinics");  // prepare query
+$statement->execute();
+$clinics = $statement->fetchAll();
+
+
+
+$statement = $con->prepare("select * from privileges");  // prepare query
+$statement->execute();
+$privileges = $statement->fetchAll();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,20 +52,17 @@ if(!isset($_SESSION['migna_user_id'])){
     <table id="patient_data" class="table table-bordered table-striped">
      <thead>
       <tr>
-       <th scope="col">First Name</th>
-       <th scope="col">Last Name</th>
+       <th scope="col">Name</th>
        <th scope="col">User Name</th>
-       <th scope="col">Type</th>
+       <th scope="col">Email</th>
+       <th scope="col">Clinic</th>
+       <th scope="col">Privilege</th>
        <th scope="col">Edit</th>
        <th scope="col">Action</th>
       </tr>
      </thead>
-
      <tbody>
-        
      </tbody>
-
-
     </table>
 
    
@@ -66,30 +77,48 @@ if(!isset($_SESSION['migna_user_id'])){
     </div>
     <div class="modal-body">
      <div class="form-group">
-        <label> First Name</label>
-        <input type="Text" class="form-control" id="first_name" name="first_name" placeholder="Enter user first name" required>
+        <label> Name</label>
+        <input type="Text" class="form-control" id="name" name="name" placeholder="Enter name" required>
       </div>
-      <div class="form-group">
-        <label> Last Name</label>
-        <input type="Text" class="form-control" id="last_name" name="last_name" placeholder="Enter user last name" required>
-      </div>
+
       <div class="form-group">
         <label> User Name</label>
         <input type="Text" class="form-control" id="user_name" name="user_name" placeholder="Enter user username" required>
       </div>
+
+        <div class="form-group">
+            <label> Email</label>
+            <input type="Text" class="form-control" id="email" name="email" placeholder="Enter user email" required>
+        </div>
+
       <div class="form-group">
         <label> Password</label>
         <input type="password" class="form-control" id="password" name="password" placeholder="Enter user password" required>
       </div>
 
-      <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="user_type" id="normal_user" value="normal" checked>
-      <label class="form-check-label" >normal user</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="user_type" id="admin_user" value="admin" >
-      <label class="form-check-label" >Adminstrator</label>
-    </div>
+        <div class="form-group">
+            <label> Clinic</label>
+
+            <select class="form-control" id="clinic_id" name="clinic_id" title="clinic">
+                <option value="-1">Select Clinic</option>
+                <?php
+                foreach ($clinics as $clinic){?>
+                    <option value="<?=$clinic['id']?>"><?=$clinic['name']?></option>
+                <?php } ?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label> Privilege</label>
+
+            <select class="form-control" id="privilege_id" name="privilege_id" title="clinic">
+                <option value="-1">Select Privilege</option>
+                <?php
+                foreach ($privileges as $privilege){?>
+                    <option value="<?=$privilege['id']?>"><?=$privilege['privilege']?></option>
+                <?php } ?>
+            </select>
+        </div>
 
      
     </div>

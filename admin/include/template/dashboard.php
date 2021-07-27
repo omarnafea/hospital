@@ -15,6 +15,10 @@ $page=$_SESSION['page'];
 
 
         <li class="list-group-item pagelink <?php if($page=='projects_category'){echo 'active';}?>">
+            <a href="../manage_users"> <i class="fas fa-users"></i> Manage Users</a>
+        </li>
+
+        <li class="list-group-item pagelink <?php if($page=='projects_category'){echo 'active';}?>">
         <a href="../projects_category"> <i class="fas fa-sitemap"></i> Projects Category</a>
         </li>
 

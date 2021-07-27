@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['migna_user_id'])){
+if(!isset($_SESSION['user_id'])){
   header("location:index.php");
   exit();
 }
@@ -69,7 +69,8 @@ include "include/functions/functions.php";
       <ul class="list-group list-group-flush"> 
         <li class="list-group-item list-group-item-success"><a href="#"><i class="fas fa-list"></i></a> </li>
         <li class="list-group-item pagelink active"><a href="dashboard.php"><i class="fas fa-list"></i> DASHBOARD</a></li>
-        <li class="list-group-item pagelink"> <a href="projects_category"><i class="fas fa-sitemap"></i> Projects Category</a></li>
+          <li class="list-group-item pagelink"> <a href="manage_users"><i class="fas fa-user"></i> Manage Users</a></li>
+          <li class="list-group-item pagelink"> <a href="projects_category"><i class="fas fa-sitemap"></i> Clinics</a></li>
         <li class="list-group-item pagelink"> <a href="change_password"><i class="fas fa-lock"></i> Change Password</a></li>
         <li class="list-group-item pagelink"><a href="logout.php"> <i class="fas fa-power-off"></i> LOGOUT</a></li>
       </ul>
@@ -89,7 +90,7 @@ include "include/functions/functions.php";
                               <span class="count">
                                    
                                 <a href="supliers/index.php">
-                                 <?php echo count_visitors();  ?>
+                                 <?php echo 10;  ?>
                                  </a>        
                                    
                               </span>

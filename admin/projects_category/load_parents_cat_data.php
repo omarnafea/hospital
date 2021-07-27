@@ -3,7 +3,7 @@
                 <option class="stat" value="0" >... </option>
                   <?php 
                   session_start();
-                      if(!isset($_SESSION['migna_user_id'])){
+                      if(!isset($_SESSION['user_id'])){
                         header("location:../index.php");
                         exit();
                       }
