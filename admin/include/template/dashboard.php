@@ -18,8 +18,14 @@ $page=$_SESSION['page'];
             <a href="../manage_users"> <i class="fas fa-users"></i> Manage Users</a>
         </li>
 
-        <li class="list-group-item pagelink <?php if($page=='projects_category'){echo 'active';}?>">
-        <a href="../projects_category"> <i class="fas fa-sitemap"></i> Projects Category</a>
+        <li class="list-group-item pagelink <?php if($page=='clinics'){echo 'active';}?>">
+        <a href="../clinics"> <i class="fas fa-sitemap"></i> Clinics</a>
+        </li>
+        <li class="list-group-item pagelink <?php if($page=='patients'){echo 'active';}?>">
+        <a href="../patients"> <i class="fas fa-user"></i> patients</a>
+        </li>
+        <li class="list-group-item pagelink <?php if($page=='appointments'){echo 'active';}?>">
+        <a href="../appointments"> <i class="fas fa-clock"></i> Appointments</a>
         </li>
 
         <li class="list-group-item pagelink <?php if($page=='change_password'){echo 'active';}?>"> 
