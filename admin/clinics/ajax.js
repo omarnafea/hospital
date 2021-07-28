@@ -98,6 +98,7 @@ $(window).resize(function() {
     processData:false,
     success:function(data)
     {
+        alert(data);
      
     $('#clinic_edit_modal').modal('hide');
     load_main_data();

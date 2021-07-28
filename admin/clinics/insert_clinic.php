@@ -8,6 +8,15 @@ if(!isset($_SESSION['user_id'])){
 }
 include('../connect.php');
 
+$stmt=$con->prepare("SELECT id FROM clinics WHERE name = ? LIMIT 1 ");
+        $stmt->execute(array( $_POST["name"]));
+        $row=$stmt->fetch();
+        $count=$stmt->rowCount();
+        if($count > 0){
+            echo 'This clinic already exist';
+            exit();
+        }
+
 
 $statement = $con->prepare("
    INSERT INTO clinics (name) 

@@ -6,7 +6,17 @@ if(!isset($_SESSION['user_id'])){
 }
 include('../connect.php');
 
-$pass='';
+
+$stmt=$con->prepare("SELECT id FROM clinics WHERE name = ? AND id  != ? LIMIT 1 ");
+        $stmt->execute(array( $_POST["name"] , $_POST["clinic_id"]));
+        $row=$stmt->fetch();
+        $count=$stmt->rowCount();
+        if($count > 0){
+            echo 'This clinic already exist';
+            exit();
+        }
+
+
 
 $statement = $con->prepare(
     "UPDATE clinics 
