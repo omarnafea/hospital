@@ -43,7 +43,7 @@ $(document).ready(function(){
         var username = $("#username").val();
         var password = $("#password").val();
 
-     if(username.length == "" || password.length == ""){
+     if(username.length == 0 || password.length == 0){
         $("#message").html("please fill out this field first").fadeIn();
         $("#message").addClass("error");
          return false;
