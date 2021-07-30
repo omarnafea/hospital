@@ -9,7 +9,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
     $password=sha1($_POST['password']);
 //check if user Exist in database
     $stmt=$con->prepare("SELECT
-      id, user_name,password
+      id, user_name,password,privilege_id
      FROM users WHERE user_name = ? AND password = ? 
        AND is_active=1 LIMIT 1 ");
         $stmt->execute(array($username,$password));
@@ -18,6 +18,7 @@ if($_SERVER['REQUEST_METHOD']=='POST'){
         if($count>0){
             $_SESSION['username']=$username;      // Regester Session Name
             $_SESSION['user_id']=$row['id'];  // Regester Session ID
+            $_SESSION['privilege_id']=$row['privilege_id'];
          echo 'ok';
         }
         else{

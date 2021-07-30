@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row">
 
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-4 col-sm-6">
 				<div class="helpful-links">
 					<h2>Contact Us</h2>
 					<ul class="list-unstyled">
@@ -14,45 +14,27 @@
 						<Li id="">address2: Jordan / amman </Li>
 						<Li id=""> Phone: 0797243170 </Li>
 
-						<Li id="">Email:<a href="mailto:email?subject=contact">Thaer@gmail.com</a> </Li>
+						<Li id="">Email:<a href="mailto:info@appointment.com?subject=contact">info@appointment.com</a> </Li>
 					</ul>
 					
 				</div>
 			</div>
 
-			<div class="col-md-3 col-sm-6">
-				<div class="helpful-links">
-					<h2>Information</h2>
-					<div class="row">
-						<div class="col">
-							<ul class="list-unstyled">
-								<li><a href="../contact">Contact us</a></li>
-							</ul>
-						</div>
-					
-						
-					</div>
-					
-				</div>
-			</div>
-
-			<div class="col-md-3 col-sm-6">
+			<div class="col-md-4 col-sm-6">
 				<div class="helpful-links">
 					<h2>Quick Links</h2>
 					<div class="row">
 						<div class="col">
 							<ul class="list-unstyled">
 								<li><a href="../">Home</a> </li>
-							</ul>
+                                <li><a href="../contact">Contact us</a></li>
+                            </ul>
 						</div>
-					
-						
 					</div>
-					
 				</div>
 			</div>
 
-			<div class="col-md-3 col-sm-6">
+			<div class="col-md-4 col-sm-6">
 				<div class="helpful-links">
 					<h2>About</h2>
 					<div class="row">
