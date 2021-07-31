@@ -87,16 +87,18 @@ function submit_appointment_from(){
     $("#appointment_form").submit();
 }
 
-function back_to_personal(){
+
+$("#back_to_personal").click(function () {
     $("#personal_data").show();
     $("#appointment_data").hide();
-}
+});
 
-function back_to_appointment(){
+
+$("#back_to_appointment").click(function () {
     $("#payment_data").hide();
     $("#personal_data").show();
 
-}
+});
 
 
 
@@ -114,6 +116,8 @@ $(document).on('submit', '#appointment_form', function(event){
             if(data.success){
                 alert('You appointment saved successfully');
                 get_appointments();
+            }else{
+                alert(data.message);
             }
         }
     });

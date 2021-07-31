@@ -43,10 +43,18 @@ $to_time = $_POST['to_time'];
 $clinic_id = $_POST['clinic_id'];
 $test_id = $_POST['test_id'] != '-1' ? $_POST['test_id'] : null;
 
-$query = "Select * from appointments  WHERE appointment_date = ? AND clinic_id = ? AND ? >= from_time AND  ? <= to_time AND is_canceled = 0";
+//$time_check = " AND   ? >= from_time AND  ? <= to_time";
+$time_check = " AND   (? BETWEEN to_time AND from_time) OR 
+   (? BETWEEN to_time AND from_time) OR (? <= from_time AND ? >= to_time)";
+
+
+
+$query = "Select * from appointments  WHERE appointment_date = ? AND clinic_id = ? 
+    AND is_canceled = 0 $time_check";
+
 
 $check_appointment = $con->prepare($query);
-$result = $check_appointment->execute(array($appointment_date  , $clinic_id , $from_time , $to_time));
+$result = $check_appointment->execute(array($appointment_date  , $clinic_id , $from_time , $to_time,$from_time , $to_time));
 
 $data = $check_appointment->fetchAll();
 
