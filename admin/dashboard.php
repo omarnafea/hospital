@@ -1,10 +1,21 @@
 <?php
 session_start();
-if(!isset($_SESSION['user_id'])){
-  header("location:index.php");
-  exit();
-}
+
+
+include "connect.php";
 include "include/functions/functions.php";
+
+
+if(!is_user_authorized()){
+    header("location:index.php");
+    exit();
+}
+
+$patients_count = get_patients_count();
+$appointments_count = get_appointments_count();
+$today_appointments_count = get_today_appointments_count();
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,7 +55,10 @@ include "include/functions/functions.php";
          echo $_SESSION['username'];?>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="manage_users">Manage users</a>
+
+            <?php if(is_admin()){?>
+                <a class="dropdown-item" href="manage_users">Manage users</a>
+            <?php }?>
           <a class="dropdown-item" href="change_password">change password</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="logout.php">LogOut</a>
@@ -64,13 +78,24 @@ include "include/functions/functions.php";
   
     <div class="row">
   <div class="col-md-3">
-    
-      <h3></h3>
-      <ul class="list-group list-group-flush"> 
+      <ul class="list-group list-group-flush">
         <li class="list-group-item list-group-item-success"><a href="#"><i class="fas fa-list"></i></a> </li>
         <li class="list-group-item pagelink active"><a href="dashboard.php"><i class="fas fa-list"></i> DASHBOARD</a></li>
-          <li class="list-group-item pagelink"> <a href="manage_users"><i class="fas fa-user"></i> Manage Users</a></li>
-          <li class="list-group-item pagelink"> <a href="clinics"><i class="fas fa-sitemap"></i> Clinics</a></li>
+
+          <?php
+          if(is_admin()){?>
+
+              <li class="list-group-item pagelink"> <a href="manage_users"><i class="fas fa-user"></i> Manage Users</a></li>
+              <li class="list-group-item pagelink"> <a href="clinics"><i class="fas fa-sitemap"></i> Clinics</a></li>
+          <?php } ?>
+
+          <?php if(is_admin() || is_doctor()){?>
+              <li class="list-group-item pagelink"> <a href="tests"><i class="fas fa-sitemap"></i> Tests</a></li>
+
+          <?php }?>
+
+
+
           <li class="list-group-item pagelink"> <a href="patients"><i class="fas fa-user"></i> Patients</a></li>
           <li class="list-group-item pagelink"> <a href="appointments"><i class="fas fa-clock-o"></i> Appointments</a></li>
         <li class="list-group-item pagelink"> <a href="change_password"><i class="fas fa-lock"></i> Change Password</a></li>
@@ -84,56 +109,47 @@ include "include/functions/functions.php";
     <div class="row">
                         
 
-                    <div class="col-md-3 col-sm-6 ">
+                    <div class="col-md-4 col-sm-6 ">
                         <div class="stat st-items">
                                <a href="#"> <i class="fa fa-group"></i></a>            
                              <div class="info">
-                             <span class="total"> Total visitors</span>
+                             <span class="total"> Total Patients</span>
                               <span class="count">
                                    
                                 <a href="supliers/index.php">
-                                 <?php echo 10;  ?>
+                                 <?php echo $patients_count ;  ?>
                                  </a>        
                                    
                               </span>
                             </div>
                         </div>
                     </div>
-                     <div class="col-md-3 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <div class="stat st-items">
                                <a href="supliers/index.php"> <i class="fa fa-group"></i></a>            
                              <div class="info">
-                             <span class="total"> Today Visitors</span>
+                             <span class="total"> Total Appointments</span>
                               <span class="count">
-                                   
-                                <a href="supliers/index.php">   10</a>        
+                                <a href="supliers/index.php">   <?=$appointments_count?></a>
                                    
                               </span>
                             </div>
                         </div>
                     </div>
 
-                     <div class="col-md-3 col-sm-6 ">
+                     <div class="col-md-4 col-sm-6 ">
                         <div class="stat st-items">
                                <a href="supliers/index.php"> <i class="fa fa-group"></i></a>            
                              <div class="info">
-                             <span class="total">  Last mounth visitors</span>
+                             <span class="total"> Today Appointments</span>
                               <span class="count">
                                    
-                                <a href="supliers/index.php">   10</a>        
+                                <a href="supliers/index.php">   <?=$today_appointments_count?></a>
                                    
                               </span>
                             </div>
                         </div>
                     </div>
-
-
-                    
-                   
-
-                        
-
-                         
   </div>
 
     

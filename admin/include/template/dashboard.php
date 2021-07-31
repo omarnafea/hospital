@@ -1,5 +1,5 @@
-<?php  
-
+<?php
+include '../include/functions/functions.php';
 
 $page=$_SESSION['page'];
 
@@ -13,17 +13,25 @@ $page=$_SESSION['page'];
             <a href="../dashboard.php"><i class="fas fa-list"></i> DASHBOARD</a> 
         </li>
 
+        <?php if(is_admin()){?>
+            <li class="list-group-item pagelink <?php if($page=='projects_category'){echo 'active';}?>">
+                <a href="../manage_users"> <i class="fas fa-users"></i> Manage Users</a>
+            </li>
+            <li class="list-group-item pagelink <?php if($page=='clinics'){echo 'active';}?>">
+                <a href="../clinics"> <i class="fas fa-sitemap"></i> Clinics</a>
+            </li>
+        <?php } ?>
 
-        <li class="list-group-item pagelink <?php if($page=='projects_category'){echo 'active';}?>">
-            <a href="../manage_users"> <i class="fas fa-users"></i> Manage Users</a>
-        </li>
+        <?php if(is_admin() || is_doctor()){?>
+                <li class="list-group-item pagelink <?php if($page=='tests'){echo 'active';}?>">
+                    <a href="../tests"> <i class="fas fa-user"></i> Tests</a>
+                </li>
+        <?php }?>
 
-        <li class="list-group-item pagelink <?php if($page=='clinics'){echo 'active';}?>">
-        <a href="../clinics"> <i class="fas fa-sitemap"></i> Clinics</a>
-        </li>
         <li class="list-group-item pagelink <?php if($page=='patients'){echo 'active';}?>">
         <a href="../patients"> <i class="fas fa-user"></i> patients</a>
         </li>
+
         <li class="list-group-item pagelink <?php if($page=='appointments'){echo 'active';}?>">
         <a href="../appointments"> <i class="fas fa-clock"></i> Appointments</a>
         </li>

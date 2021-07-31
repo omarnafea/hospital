@@ -199,9 +199,9 @@ h2{
 }
 
 .slider .carousel-inner a{
-  position: absolute;
-     color: #FFF;
-     background-color: black;
+      position: absolute;
+     color: #fff;
+     background-color: #004466;
      font-size: 20px;
      z-index: 3;
      left: 44%;
@@ -212,7 +212,7 @@ h2{
 }
 .slider .carousel-inner a:hover{
 
-     color: black;
+     color: #004466;
      background-color: #fff;
      border:2px solid #000;
      border-radius: 4px;
