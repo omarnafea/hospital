@@ -32,6 +32,8 @@ $tests = $statement->fetchAll();
 	<script src="https://kit.fontawesome.com/9bb4e0493f.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="layout/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="layout/css/main.css">
+
+
 </head>
 <body>
 <?php include "include/template/home_navbar.php"?>
@@ -272,7 +274,7 @@ $tests = $statement->fetchAll();
 
             <div class="row">
                 <button class="btn btn-info w-50" type="button" id="next_to_payment">NEXT</button>
-                <button class="btn btn-warning w-50" type="button" id="back_to_personal" onclick="back_to_personal()">BACK</button>
+                <button class="btn btn-warning w-50" type="button" id="back_to_personal">BACK</button>
             </div>
 
         </div>
@@ -316,7 +318,7 @@ $tests = $statement->fetchAll();
 
             <div class="row">
                 <button class="btn btn-info w-50" type="button" id="next_to_payment" onclick="submit_appointment_from()">Save</button>
-                <button class="btn btn-warning w-50" type="button" id="back_to_appointment" onclick="back_to_appointment()">BACK</button>
+                <button class="btn btn-warning w-50" type="button" id="back_to_appointment">BACK</button>
             </div>
 
         </div>
@@ -412,17 +414,7 @@ $tests = $statement->fetchAll();
 
 <!-- end footer-->
 
-
-
-
-
-	
-<script src="layout/js/main.js">
-
-
- 
- 
-</script>
+<script src="layout/js/main.js"></script>
 
 </body>
 </html>
