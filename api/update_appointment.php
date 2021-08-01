@@ -11,11 +11,11 @@ $test_id = $_POST['test_id'] != '-1' ? $_POST['test_id'] : null;
 $appointment_id = $_POST['appointment_id'];
 
 $query = "Select * from appointments  
-WHERE appointment_date = ? AND clinic_id = ? AND ? >= from_time AND  ? <= to_time 
-AND id != ?  AND is_canceled = 0";
+WHERE appointment_date = ? AND clinic_id = ? AND is_canceled = 0 AND   (? BETWEEN to_time AND from_time) OR 
+   (? BETWEEN to_time AND from_time) OR (? <= from_time AND ? >= to_time) AND id != ?";
 
 $check_appointment = $con->prepare($query);
-$result = $check_appointment->execute(array($appointment_date  , $clinic_id , $from_time , $to_time ,$appointment_id));
+$result = $check_appointment->execute(array($appointment_date  , $clinic_id , $from_time , $to_time,$from_time , $to_time , $appointment_id));
 $data = $check_appointment->fetchAll();
 
 if(empty($data)){

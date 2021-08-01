@@ -13,6 +13,13 @@ $("#next_to_appointments").click(function () {
         alert("Please enter your mobile");
         return false;
     }
+    
+    if($("#mobile").val().trim().length < 10 || $("#mobile").val().trim().length > 12 ){
+        alert("Please enter a valid  mobile");
+        return false;
+    }
+    
+    
     if($("#place_of_living").val().trim() === ''){
         alert("Please enter your place of living");
         return false;
@@ -23,6 +30,11 @@ $("#next_to_appointments").click(function () {
     }
     if($("#id_number").val().trim() === ''){
         alert("Please enter your id number");
+        return false;
+    }
+    
+    if($("#id_number").val().trim().length  != 10){
+        alert("Please enter a valid  id number");
         return false;
     }
 
@@ -105,7 +117,7 @@ $("#back_to_appointment").click(function () {
 $(document).on('submit', '#appointment_form', function(event){
     event.preventDefault();
     $.ajax({
-        url:"api/appointment.php",
+        url:"../api/appointment.php",
         method:'POST',
         data:new FormData(this),
         contentType:false,
@@ -139,7 +151,7 @@ function get_appointments(id_number = null){
 
     var data = {id_number : id_number};
     $.ajax({
-        url:"api/get_appointments.php",
+        url:"../api/get_appointments.php",
         method:'POST',
         data:data,
         dataType  : 'json',
@@ -165,7 +177,7 @@ function get_appointments(id_number = null){
 
 function update_appointment(id){
     $.ajax({
-        url:"api/get_single_appointment.php",
+        url:"../api/get_single_appointment.php",
         method:'POST',
         data:{id : id},
         dataType  : 'json',
@@ -191,7 +203,7 @@ function cancel_appointment(id , canceled = 1){
     let cancel = canceled ? 'cancel' : 'Un Cancel';
     if (window.confirm("Are you sure?  , you want to "+cancel+" this appointment ")) {
         $.ajax({
-            url:"api/cancel_appointment.php",
+            url:"../api/cancel_appointment.php",
             method:'POST',
             data:{id : id , canceled  : canceled},
             dataType  : 'json',
@@ -259,7 +271,7 @@ $(document).on('submit', '#update_form', function(event){
 
 
     $.ajax({
-        url:"api/update_appointment.php",
+        url:"../api/update_appointment.php",
         method:'POST',
         data:new FormData(this),
         contentType:false,
