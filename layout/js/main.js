@@ -163,6 +163,25 @@ function get_appointments(id_number = null){
                 $("#patient_data .name").text(data.patient.name);
                 $("#patient_data .id_number").text(data.patient.id_number);
                 $("#patient_data .mobile").text(data.patient.mobile);
+
+                $("#name").val(data.patient.name);
+                $("#mobile").val(data.patient.mobile);
+                $("#place_of_living").val(data.patient.place_of_living);
+                $("#birth_date").val(data.patient.birth_date);
+                $("#id_number").val(data.patient.id_number);
+
+                if(data.patient.gender === 'male'){
+                    $("#male").prop('checked' , true);
+                }else{
+                    $("#female").prop('checked' , true);
+                }
+
+                if(data.patient.have_insurence === '0'){
+                    $("#not_have_insurance").prop('checked' , true);
+                }else{
+                    $("#have_insurance").prop('checked' , true);
+                }
+
                 if(data.table !== ''){
                     $("#appointments_table tbody").html(data.table);
                 }
@@ -174,6 +193,20 @@ function get_appointments(id_number = null){
     });
 }
 
+
+$("#appointment_date").change(function () {
+
+    $.ajax({
+        url:"../api/get_available_appointments.php",
+        method:'POST',
+        data:{date : $(this).val()},
+        success:function(data)
+        {
+            $("#select_time").html(data);
+        }
+    });
+
+});
 
 function update_appointment(id){
     $.ajax({

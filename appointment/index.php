@@ -219,6 +219,15 @@ $_SESSION['page']='contact';
                 <input type="date" class="form-control" id="appointment_date" name="appointment_date" placeholder="Select date" required>
             </div>
 
+            <div class="from-group">
+                <label> Available Times </label>
+                <select id="select_time" class="form-control" name="select_time" title="time">
+                    <option value="-1">Select Time</option>
+
+                </select>
+            </div>
+
+
             <div class="form-group">
                 <label> From time</label>
                 <input type="time" class="form-control" id="from_time" name="from_time" placeholder="From Time" required>

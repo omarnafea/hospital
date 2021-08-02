@@ -61,9 +61,9 @@ $_SESSION['page']='contact';
 			       		<p id="address_2"></p>
 
 			       		<h5>Give us a ring</h5>
-			       		<p id="phone">T:5616515615</p>
-			       		<p id="tel">T:5616515615</p>
-			       		<p id="email">T:5616515615</p>
+			       		<p id="phone">Mobile : 0797243170</p>
+			       		<p id="tel"></p>
+			       		<p id="email">Email : abaasithaer8@gmail.com</p>
 			       	</div>
 		       	</div>
        </div>
@@ -77,8 +77,7 @@ $_SESSION['page']='contact';
          <div class="location">
          	<h2 class="text-center">Our Location</h2>
 					<div class="*embed-responsive">
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3470.4672598410725!2d35.01342168519308!3d29.561005082060753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15006fc6aac7dcf3%3A0xfe27ac82f0fc3b00!2zQWwgS3V3YWl0IFN0IDEwN9iMINin2YTYudmC2KjYqQ!5e0!3m2!1sar!2sjo!4v1574012345092!5m2!1sar!2sjo" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-					</div>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1735.044891875233!2d35.01892959556493!3d29.571990850595736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15006f97c84fec79%3A0x1c8d57a78f76b1eb!2z2YXYs9iq2LTZgdmJINin2YTYo9mF2YrYsSDZh9in2LTZhSDYqNmGINi52KjYr9in2YTZhNmHINin2YTYudiz2YPYsdmK!5e0!3m2!1sar!2sjo!4v1627932674641!5m2!1sar!2sjo" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>					</div>
 				</div>
          </div>
 
