@@ -24,7 +24,7 @@ $_SESSION['page']='contact';
 <?php include "../include/template/navbar.php"?>
 
 <div class="contact-us">
-		<div class="container-falud">
+		<div class="container-fluid">
 			
 
 		<h2 class="text-center h1">Appointments</h2>

@@ -72,25 +72,18 @@ $_SESSION['page']='contact';
 
 
 
-		</div>
-         
+
 
          <div class="location">
-
          	<h2 class="text-center">Our Location</h2>
-				<div class="row">
-
-					<div class="col">
+					<div class="*embed-responsive">
 						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3470.4672598410725!2d35.01342168519308!3d29.561005082060753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15006fc6aac7dcf3%3A0xfe27ac82f0fc3b00!2zQWwgS3V3YWl0IFN0IDEwN9iMINin2YTYudmC2KjYqQ!5e0!3m2!1sar!2sjo!4v1574012345092!5m2!1sar!2sjo" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
-						
 					</div>
 				</div>
-
-         	
          </div>
 
-
 </div>
+
 
 
 
