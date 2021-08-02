@@ -22,7 +22,7 @@
         </li>
 
           <li class="nav-item">
-              <a class="nav-link" href="#">Book Appointment</a>
+              <a class="nav-link" href="../appointment">Book Appointment</a>
           </li>
         
       </ul>

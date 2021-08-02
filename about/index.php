@@ -102,45 +102,6 @@ new_visitor();
     }
 
 
-load_contact_page_data();
-    function load_contact_page_data()
-    {   
-        $.ajax({
-         url:"../api/load_home_page_data.php",
-         method:"POST",
-         data:{},
-         dataType:"json",
-         success:function(data)
-         {
-          $('#about_en').html(data.about_text_en);
-          $('#about_ar').html(data.about_text_ar);
-          $('#logo').html(data.logo);
-            $('#full_company_name').html(data.full_company_name);
-          
-         
-         
-         
-          
-         }
-        })
-    }
-
-load_social_links();
-    function load_social_links()
-    {   
-        
-        $.ajax({
-         url:"../api/load_social_links.php",
-         method:"POST",
-         data:{},
-         success:function(data)
-         {
-            
-          $('#social_links').html(data);
-
-         }
-        })
-    }
 
 
 

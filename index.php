@@ -46,7 +46,7 @@ $tests = $statement->fetchAll();
           <h6>Appointments WEB SOLUTIONS</h6>
           <h3>Your Partner in Growth</h3>
           <p>You have goals, you need results, we have the way to get you there. We create digital solutions that will convert your visitors into real clients.</p>
-          <a href="#book" class="btn btn-light">Appointment Now</a>
+          <a href="appointment" class="btn btn-light">Appointment Now</a>
           <div class="overlay"></div>
 
           <div class="carousel-item active">

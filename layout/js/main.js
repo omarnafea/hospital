@@ -291,6 +291,15 @@ $(document).on('submit', '#update_form', function(event){
 
 });
 
+
+$('.carousel').carousel({
+    interval: 2500
+
+});
+
+
+
+
 $(document).ready(function(){
 
 
@@ -310,14 +319,6 @@ $(window).scroll(function(event){
    }
    lastScrollTop = st;
 });
-
-var elements = ["Saab", "Volvo", "BMW"];
-console.log(elements[0]);
-
-    $('.carousel').carousel({
-		  interval: 3000
-		 
-		});
 
 
 $(document).on('mouseenter', '.work', function(event){

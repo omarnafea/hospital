@@ -119,28 +119,7 @@ $(window).scroll(function(event){
 });
 
 
-load_contact_page_data();
-    function load_contact_page_data()
-    {   
-        $.ajax({
-         url:"../api/load_home_page_data.php",
-         method:"POST",
-         data:{},
-         dataType:"json",
-         success:function(data)
-         {
-          $('#address_1').html(data.address_en);
-          $('#address_2').html(data.address_ar);
-          $('#phone').html("Phone : "+data.tel_number);
-          $('#tel').html("Tel : "+data.mobile_number);
-          $('#email').html("Email : "+data.email_address);
 
-         
-         
-          
-         }
-        })
-    }
 new_visitor();
     function new_visitor()
     {   
@@ -153,23 +132,6 @@ new_visitor();
          {
             
          
-
-         }
-        })
-    }
-
-load_social_links();
-    function load_social_links()
-    {   
-        
-        $.ajax({
-         url:"../api/load_social_links.php",
-         method:"POST",
-         data:{},
-         success:function(data)
-         {
-            
-          $('#social_links').html(data);
 
          }
         })
