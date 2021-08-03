@@ -208,6 +208,13 @@ $("#appointment_date").change(function () {
 
 });
 
+$("#select_time").change(function () {
+   var from_time = $(this).find(':selected').data('from');
+   var to_time = $(this).find(':selected').data('to');
+   $("#from_time").val(from_time);
+   $("#to_time").val(to_time);
+
+});
 function update_appointment(id){
     $.ajax({
         url:"../api/get_single_appointment.php",

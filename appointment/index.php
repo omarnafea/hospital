@@ -1,6 +1,22 @@
 <?php
 session_start();
-$_SESSION['page']='contact';
+$_SESSION['page']='appointment';
+
+
+
+include '../connect.php';
+
+$statement = $con->prepare("SELECT clinics.* , users.name as doctor 
+                              FROM clinics inner join  users on users.clinic_id = clinics.id and users.privilege_id = 1");
+$statement->execute();
+$clinics = $statement->fetchAll();
+
+
+
+$statement = $con->prepare("SELECT * from tests");
+$statement->execute();
+$tests = $statement->fetchAll();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -239,8 +255,8 @@ $_SESSION['page']='contact';
             </div>
 
             <div class="row">
-                <button class="btn btn-info w-50" type="button" id="next_to_payment">NEXT</button>
-                <button class="btn btn-warning w-50" type="button" id="back_to_personal">BACK</button>
+                <button class="btn btn-info w-40" type="button" id="next_to_payment">NEXT</button>
+                <button class="btn btn-warning w-40" type="button" id="back_to_personal">BACK</button>
             </div>
 
         </div>
@@ -283,8 +299,8 @@ $_SESSION['page']='contact';
 
 
             <div class="row">
-                <button class="btn btn-info w-50" type="button" id="next_to_payment" onclick="submit_appointment_from()">Save</button>
-                <button class="btn btn-warning w-50" type="button" id="back_to_appointment">BACK</button>
+                <button class="btn btn-info w-40" type="button" id="next_to_payment" onclick="submit_appointment_from()">Save</button>
+                <button class="btn btn-warning w-40" type="button" id="back_to_appointment">BACK</button>
             </div>
 
         </div>

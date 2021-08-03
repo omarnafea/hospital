@@ -1,21 +1,8 @@
 <?php
 
-				function lang($pharse){
 
+$lang=array(
 
-				static $lang=array(
-                'HOME_ADMIN'=>'Home',
-                'CATIGORIES'=>'Catigories',
-                'ITEMS'     =>'Items',
-                'MEMBERS'   =>'Members',
-                'COMMENTS'   =>'Comments',
-                'STATISTICS'=>'Statistics',
-                'LOGS'      =>'Logs',
+    'home'=>'Home'
+);
 
-
-				);
-					
-					
-
-				return $lang[$pharse];
-}

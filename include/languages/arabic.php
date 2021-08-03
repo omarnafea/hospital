@@ -1,14 +1,10 @@
 <?php
 
-function lang($pharse){
 
 
-static %lang=array(){
+$lang=array(
 	
-	'message'=>'welcome in arabic';
-}
-	return $lang[$pharse];
-
-};
+	'home'=>'الرئيسية'
+);
 
 ?>

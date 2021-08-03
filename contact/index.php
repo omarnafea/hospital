@@ -122,8 +122,6 @@ new_visitor();
          data:{},
          success:function(data)
          {
-            
-         
 
          }
         })

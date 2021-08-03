@@ -111,12 +111,12 @@ $today_appointments_count = get_today_appointments_count();
 
                     <div class="col-md-4 col-sm-6 ">
                         <div class="stat st-items">
-                               <a href="#"> <i class="fa fa-group"></i></a>            
+                               <a href="patients"> <i class="fa fa-group"></i></a>
                              <div class="info">
                              <span class="total"> Total Patients</span>
                               <span class="count">
                                    
-                                <a href="supliers/index.php">
+                                <a href="patients">
                                  <?php echo $patients_count ;  ?>
                                  </a>        
                                    
@@ -126,11 +126,11 @@ $today_appointments_count = get_today_appointments_count();
                     </div>
                      <div class="col-md-4 col-sm-6 ">
                         <div class="stat st-items">
-                               <a href="supliers/index.php"> <i class="fa fa-group"></i></a>            
+                               <a href="appointments"> <i class="fa fa-clock-o"></i></a>
                              <div class="info">
                              <span class="total"> Total Appointments</span>
                               <span class="count">
-                                <a href="supliers/index.php">   <?=$appointments_count?></a>
+                                <a href="appointments">   <?=$appointments_count?></a>
                                    
                               </span>
                             </div>
@@ -139,12 +139,12 @@ $today_appointments_count = get_today_appointments_count();
 
                      <div class="col-md-4 col-sm-6 ">
                         <div class="stat st-items">
-                               <a href="supliers/index.php"> <i class="fa fa-group"></i></a>            
+                               <a href="appointments/index.php?date=today"> <i class="fa fa-clock-o"></i></a>
                              <div class="info">
                              <span class="total"> Today Appointments</span>
                               <span class="count">
                                    
-                                <a href="supliers/index.php">   <?=$today_appointments_count?></a>
+                                <a href="appointments/index.php?date=today">   <?=$today_appointments_count?></a>
                                    
                               </span>
                             </div>

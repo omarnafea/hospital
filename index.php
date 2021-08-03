@@ -43,7 +43,7 @@ $tests = $statement->fetchAll();
 	<div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
 	  <div class="carousel-inner">
 
-          <h6>Appointments WEB SOLUTIONS</h6>
+          <h6>Appointments WEB SOLUTIONS </h6>
           <h3>Welcome to my simple project</h3>
           <p>To solve the problem of appointments inside the hospital inside the south, especially the city of Aqaba, as Hashem Hospital serves about six villages around Aqaba, so this site was designed to help this category who comes from far places and also serves the category of special needs that are difficult to reach the hospital to book an appointment.</p>
           <a href="appointment" class="btn btn-light">Appointment Now</a>

@@ -12,13 +12,13 @@ $result= $stmt->execute(array($_POST['date']));
 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 //24
-$times = [
-    [ 'from' =>   '00:00' , 'to' =>'01:00' ],
-    [ 'from' =>   '01:00' , 'to' =>'02:00' ],
-    [ 'from' =>   '02:00' , 'to' =>'03:00' ],
-    [ 'from' =>   '03:00' , 'to' =>'04:00' ],
-    [ 'from' =>   '04:00' , 'to' =>'05:00' ]
-];
+
+$times  = [];
+for ( $i = 8 ;   $i <= 18 ;   $i++){
+    $from = strlen(strval($i))< 2 ? "0".strval($i) : $i;
+    $to =  strlen(strval($i+1))< 2 ? "0".($i+1) : $i+1 ;
+    array_push( $times  , ['from'=>  "{$from}" .  ":00" , 'to'=>  "{$to}" .  ":00"]);
+}
 
 $available = [];
 
@@ -26,7 +26,7 @@ foreach ($times as $time){
 
 
     $is_bocked = false;
-    $av = [];
+    $av = ['from' => $time['from'] , 'to'=>$time['to']];
 
     foreach ($data as $booked){
 
@@ -38,8 +38,6 @@ foreach ($times as $time){
             if($booked_from >= $time_from && $booked_to <= $time_to){
                 $is_bocked = true;
                  break;
-            }else{
-                $av = ['from' => $time['from'] , 'to'=>$time['to']];
             }
     }
 
@@ -49,6 +47,7 @@ foreach ($times as $time){
 
 
 $html = '';
+
 foreach ($available as $time){
 
     $html .= "<option data-from='".$time['from']."' data-to='".$time['to']."'>
