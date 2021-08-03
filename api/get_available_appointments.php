@@ -23,22 +23,28 @@ $times = [
 $available = [];
 
 foreach ($times as $time){
+
+
+    $is_bocked = false;
+    $av = [];
+
     foreach ($data as $booked){
 
-        $booked_from = new DateTime($booked['from_time']);
-        $booked_to = new DateTime($booked['to_time']);
+            $booked_from = new DateTime($booked['from_time']);
+            $booked_to = new DateTime($booked['to_time']);
+            $time_from = new DateTime($time['from']);
+            $time_to = new DateTime($time['to']);
 
-        $time_from = new DateTime($time['from']);
-        $time_to = new DateTime($time['to']);
-
-        if($booked_from >= $time_from && $booked_to <= $time_to){
-            break;
-        }else{
-            $av = ['from' => $time['from'] , 'to'=>$time['to']];
-            array_push($available ,$av );
-            break;
-        }
+            if($booked_from >= $time_from && $booked_to <= $time_to){
+                $is_bocked = true;
+                 break;
+            }else{
+                $av = ['from' => $time['from'] , 'to'=>$time['to']];
+            }
     }
+
+    if(!$is_bocked)
+        array_push($available ,$av );
 }
 
 
