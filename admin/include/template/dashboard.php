@@ -35,6 +35,9 @@ $page=$_SESSION['page'];
         <li class="list-group-item pagelink <?php if($page=='appointments'){echo 'active';}?>">
         <a href="../appointments"> <i class="fas fa-clock"></i> Appointments</a>
         </li>
+        <li class="list-group-item pagelink <?php if($page=='Contacts'){echo 'contacts';}?>">
+        <a href="../contact"> <i class="fas fa-envelope"></i> Contacts</a>
+        </li>
 
         <li class="list-group-item pagelink <?php if($page=='change_password'){echo 'active';}?>"> 
            <a href="../change_password"> <i class="fas fa-lock"></i> Change Password</a>

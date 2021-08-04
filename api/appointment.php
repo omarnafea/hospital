@@ -14,6 +14,17 @@ $check_patient = $stmt->rowCount();
 
 if($check_patient   > 0){
     $patient_id = $patient['id'];
+
+
+    $statement = $con->prepare("
+   UPDATE patients
+    SET name = ? , mobile = ? ,  place_of_living = ? , birth_date = ? , id_number = ? , gender = ? , have_insurence = ?
+    where id = ?");
+    $result = $statement->execute(
+        [$_POST["name"] ,$_POST["mobile"] , $_POST["place_of_living"] ,  $_POST["birth_date"]  ,$_POST["id_number"] ,
+            $_POST["gender"] , $_POST["have_insurance"] , $patient_id]
+    );
+    //update patient data
 }else{
 
     $statement = $con->prepare("

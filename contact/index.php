@@ -31,25 +31,25 @@ $_SESSION['page']='contact';
        <div class="row">
 		       	<div class="col-md-6">
 		       		<h2 class="text-center">Keep In Touch</h2>
-		       		<form>
+		       		<form id="contact_form">
 					  <div class="row">
 					    <div class="col">
-					      <input type="text" class="form-control" placeholder="First name">
+					      <input type="text" class="form-control" name="first_name" placeholder="First name" required>
 					    </div>
 					    <div class="col">
-					      <input type="text" class="form-control" placeholder="Last name">
+					      <input type="text" class="form-control" name="last_name" placeholder="Last name" required>
 					    </div>
 					    <div class="col">
-					      <input type="text" class="form-control" placeholder="Last name">
+					      <input type="text" class="form-control" name="mobile" placeholder="Mobile" required>
 					    </div>
 					  </div>
 
 					  <div class="row">
 					    <div class="col">
-					      <textarea class="form-control" placeholder="Your Message" rows="5" cols="20"></textarea>  
+					      <textarea class="form-control" name="message" placeholder="Your Message" rows="5" cols="20" required></textarea>
 					    </div>
 					  </div>
-					  <button type="button" class="btn btn-light">SEND MESSAGE</button>
+					  <button type="submit" class="btn btn-light">SEND MESSAGE</button>
 					</form>
 
 		       	</div>
@@ -111,8 +111,26 @@ $(window).scroll(function(event){
 });
 
 
+    $(document).on('submit', '#contact_form', function(event){
+        event.preventDefault();
 
-new_visitor();
+        $.ajax({
+            url:"../api/contact.php",
+            method:'POST',
+            data:new FormData(this),
+            contentType:false,
+            processData:false,
+            success:function(data)
+            {
+              alert('Thank you for your message');
+                $('#contact_form')[0].reset();
+
+            }
+        });
+    });
+
+
+        new_visitor();
     function new_visitor()
     {   
         

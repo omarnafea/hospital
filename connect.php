@@ -1,5 +1,8 @@
 <?php
 
+
+include 'include/functions/functions.php';
+
 $dsn='mysql:host=localhost;dbname=hospital'; // the database connection string
 $user='root';                            // the user name of the php myadmin
 $pass='';                                // password of php myadmin 
