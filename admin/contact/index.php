@@ -11,10 +11,6 @@ $statement = $con->prepare("select * from contact");  // prepare query
 $statement->execute();
 $contacts = $statement->fetchAll();
 
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

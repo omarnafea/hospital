@@ -6,8 +6,9 @@
 
     <script src="layout/js/jquery-3.4.1.min.js"></script>
     <script src="layout/js/bootstrap.min.js"></script>
+    <script src="layout/js/boot.js"></script>
 
-		<link rel="stylesheet" href="layout/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="layout/css/bootstrap.min.css"/>
 	    <link rel="stylesheet" href="layout/css/font-awesome.min.css" />
 	    <link rel="stylesheet" href="layout/css/main.css"/> 
          

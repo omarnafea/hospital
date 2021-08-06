@@ -45,7 +45,6 @@ if($check_patient   > 0){
     $patient_id = $con->lastInsertId();
 }
 
-setcookie("patient_id", $patient_id, time()+31536000,'/');
 
 
 
@@ -63,8 +62,8 @@ if($_POST['test_id'] != '-1'){
 }*/
 
 //$time_check = " AND   ? >= from_time AND  ? <= to_time";
-$time_check = " AND  ( (? BETWEEN to_time AND from_time) OR 
-   (? BETWEEN to_time AND from_time) OR (? <= from_time AND ? >= to_time))";
+$time_check = " AND  (  (? BETWEEN to_time AND from_time) OR 
+   (? BETWEEN to_time AND from_time) OR (? <= from_time AND ? >= to_time) )";
 
 
 $query = "Select * from appointments  WHERE appointment_date = ? AND clinic_id = ? 
@@ -75,6 +74,9 @@ $check_appointment = $con->prepare($query);
 $result = $check_appointment->execute(array($appointment_date  , $clinic_id , $from_time , $to_time,$from_time , $to_time));
 
 $data = $check_appointment->fetchAll();
+
+
+
 
 if(empty($data)){
 

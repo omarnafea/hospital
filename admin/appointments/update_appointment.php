@@ -11,8 +11,7 @@ $test_id = $_POST['test_id'] != '-1' ? $_POST['test_id'] : null;
 $appointment_id = $_POST['appointment_id'];
 
 $query = "Select * from appointments  
-WHERE appointment_date = ? AND clinic_id = ? AND is_canceled = 0 AND  
-  ( (? BETWEEN to_time AND from_time) OR 
+WHERE appointment_date = ? AND clinic_id = ? AND is_canceled = 0 AND  (  (? BETWEEN to_time AND from_time) OR 
    (? BETWEEN to_time AND from_time) OR (? <= from_time AND ? >= to_time) ) AND id != ?";
 
 $check_appointment = $con->prepare($query);

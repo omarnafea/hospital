@@ -32,6 +32,7 @@ include "../include/functions/functions.php"
   <link rel="stylesheet" href="layout/css/bootstrap.min.css"/>
   <script src="https://kit.fontawesome.com/9bb4e0493f.js" crossorigin="anonymous"></script>
   <script src="layout/js/bootstrap.min.js"></script>
+  <script src="layout/js/boot.js"></script>
   <link rel="stylesheet" type="text/css" href="layout/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="layout/css/main.css">
 
@@ -94,7 +95,7 @@ include "../include/functions/functions.php"
           <?php } ?>
 
           <?php if(is_admin() || is_doctor()){?>
-              <li class="list-group-item pagelink"> <a href="tests"><i class="fas fa-sitemap"></i> Tests</a></li>
+              <li class="list-group-item pagelink"> <a href="test"><i class="fas fa-sitemap"></i> Tests</a></li>
 
           <?php }?>
 

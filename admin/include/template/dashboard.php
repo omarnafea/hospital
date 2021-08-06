@@ -24,7 +24,7 @@ $page=$_SESSION['page'];
 
         <?php if(is_admin() || is_doctor()){?>
                 <li class="list-group-item pagelink <?php if($page=='tests'){echo 'active';}?>">
-                    <a href="../tests"> <i class="fas fa-user"></i> Tests</a>
+                    <a href="../test"> <i class="fas fa-user"></i> Tests</a>
                 </li>
         <?php }?>
 
