@@ -7,7 +7,7 @@ $response['success'] = false;
 
 
     $params = [];
-    $condition = "";
+    $condition = " AND appointments.appointment_date >= now()";
 
     if(is_doctor()){
 
@@ -58,6 +58,13 @@ $response['success'] = false;
             $cancel_btn = ' <button type="button"  class="btn btn-success cancel-appointment"  onclick="cancel_appointment('.$row["id"].' , 0)">Un Cancel</button>';
 
 
+            $confirm_btn = '';
+
+            if(!$is_confirmed && !$is_canceled){
+                $cancel_btn = ' <button type="button"  class="btn btn-success cancel-appointment"  onclick="confirm_appointment('.$row["id"].')">Confirm</button>';
+
+            }
+
 
             $table .= '<tr id="'.$row["id"].'">
                <td>'.$i.'</td>
@@ -71,6 +78,7 @@ $response['success'] = false;
                <td>
                    <button type="button"  class="btn btn-primary update-appointment" onclick="update_appointment('.$row["id"].')">Edit</button>
                    '.$cancel_btn.'
+                   '.$confirm_btn.'
                </td>';
             $i ++;
         }

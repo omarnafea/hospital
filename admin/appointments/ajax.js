@@ -239,6 +239,28 @@ function cancel_appointment(id , canceled = 1){
 }
 
 
+function confirm_appointment(id){
+    if (window.confirm("Are you sure?  , you want to confirm this appointment ")) {
+        $.ajax({
+            url:"confirm.php",
+            method:'POST',
+            data:{id : id},
+            dataType  : 'json',
+            success:function(data)
+            {
+                if(data.success){
+                    alert("appointment confirmed");
+                    get_appointments();
+                }else{
+                    alert(data.message);
+                }
+            }
+        });
+    }
+
+}
+
+
 $(document).on('submit', '#update_form', function(event){
     event.preventDefault();
 
