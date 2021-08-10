@@ -70,6 +70,12 @@ function count_visitors(){
         }
 
         function is_doctor(){
+
+            /* if($_SESSION['privilege_id'] == '1'){
+                 return true;
+             }
+            return false;*/
+
             return  $_SESSION['privilege_id'] == '1';
         }
 

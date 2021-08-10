@@ -32,9 +32,11 @@ $page=$_SESSION['page'];
         <a href="../patients"> <i class="fas fa-user"></i> patients</a>
         </li>
 
-        <li class="list-group-item pagelink <?php if($page=='appointments'){echo 'active';}?>">
-        <a href="../appointments"> <i class="fas fa-clock"></i> Appointments</a>
-        </li>
+        <?php if(!is_admin()){?>
+                <li class="list-group-item pagelink <?php if($page=='appointments'){echo 'active';}?>">
+                <a href="../appointments"> <i class="fas fa-clock"></i> Appointments</a>
+                </li>
+        <?php }?>
         <li class="list-group-item pagelink <?php if($page=='Contacts'){echo 'contacts';}?>">
         <a href="../contact"> <i class="fas fa-envelope"></i> Contacts</a>
         </li>

@@ -64,6 +64,16 @@ $patients = $statement->fetchAll();
         <div class="col-md-10">
             <button class="btn btn-primary my-2" onclick="go_to_new()">New Appointment</button>
 
+
+            <div class="form-inline my-2">
+                <div class="form-group mx-1" >
+                    <input type="date" class="form-control" title="from date" id="filter_from_date">
+                </div>
+                <div class="form-group">
+                    <input type="date" class="form-control mx-1" title="to date" id="filter_to_date">
+                </div>
+                <button class="btn btn-primary mx-1" type="button" id="filter_date" onclick="filter_date()">Filter </button>
+            </div>
             <div id="my_appointments">
                 <table id="appointments_table" class="table table-bordered table-striped">
                     <thead>
@@ -72,8 +82,6 @@ $patients = $statement->fetchAll();
                         <th scope="col">Patient</th>
                         <th scope="col">Clinic</th>
                         <th scope="col">Date</th>
-                        <th scope="col">From Time</th>
-                        <th scope="col">To Time</th>
                         <th scope="col">Test</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
@@ -139,6 +147,41 @@ $patients = $statement->fetchAll();
                             <div class="modal-footer">
                                 <input type="hidden" name="appointment_id" id="edit_appointment_id" />
                                 <input type="submit" name="action"  class="btn btn-success" value="Update" />
+                                <button type="button" class="btn btn-default close_btn" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+
+
+            <div id="test_result_modal" class="modal fade">
+                <div class="modal-dialog">
+                    <form method="post" id="test_result_form" enctype="multipart/form-data">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Test Result</h4>
+                            </div>
+                            <div class="modal-body">
+
+
+
+                                <div class="form-group">
+                                    <label> Result</label>
+                                    <textarea class="form-control" cols="20" rows="5" title="result" id="test_result_text" name="result_text" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label> Attachment </label>
+                                    <input type="file" name="attachment" accept=".png, .jpg, .jpeg ,.pdf" required>
+                                </div>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <input type="hidden" name="appointment_id" id="test_result_appointment_id" />
+                                <input type="submit" name="action"  class="btn btn-success" value="Save" />
                                 <button type="button" class="btn btn-default close_btn" data-dismiss="modal">Close</button>
                             </div>
                         </div>

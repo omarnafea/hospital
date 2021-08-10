@@ -113,6 +113,32 @@ $("#back_to_appointment").click(function () {
 
 
 
+$(document).on('submit', '#test_result_form', function(event){
+    event.preventDefault();
+    $.ajax({
+        url:"save_result.php",
+        method:'POST',
+        data:new FormData(this),
+        contentType:false,
+        processData:false,
+        dataType : "json" ,
+        success:function(data)
+        {
+
+            if(data.success){
+                alert("Result saved successfully");
+                $('#test_result_form')[0].reset();
+                $('#test_result_modal').modal('hide');
+
+            }else{
+                alert(data.error);
+
+            }
+        }
+    });
+
+});
+
 $(document).on('submit', '#appointment_form', function(event){
     event.preventDefault();
     $.ajax({
@@ -145,10 +171,18 @@ function search_by_id_number(){
         get_appointments(id_number);
     }
 }
-get_appointments();
-function get_appointments(id_number = null){
 
-    var data = {id_number : id_number};
+function filter_date(){
+
+    var from_date = $("#filter_from_date").val();
+    var to_date = $("#filter_to_date").val();
+    get_appointments(null ,from_date ,  to_date);
+}
+get_appointments();
+
+function get_appointments(id_number = null , from_date = null , to_date = null){
+
+    var data = {id_number : id_number , from_date :from_date , to_date : to_date};
     $.ajax({
         url:"get_appointments.php",
         method:'POST',
@@ -157,6 +191,7 @@ function get_appointments(id_number = null){
         success:function(data)
         {
             if(data.success){
+                $("#appointments_table tbody").html('');
 
 
                 if(data.table !== ''){
@@ -171,6 +206,11 @@ function get_appointments(id_number = null){
     });
 }
 
+function show_test_result_form(id){
+$("#test_result_modal").modal("show");
+$("#test_result_appointment_id").val(id);
+
+}
 
 $("#appointment_date").change(function () {
 

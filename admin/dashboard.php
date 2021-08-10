@@ -102,7 +102,12 @@ include "../include/functions/functions.php"
 
 
           <li class="list-group-item pagelink"> <a href="patients"><i class="fas fa-user"></i> Patients</a></li>
+
+          <?php
+          if(!is_admin()){?>
           <li class="list-group-item pagelink"> <a href="appointments"><i class="fas fa-clock-o"></i> Appointments</a></li>
+          <?php } ?>
+
           <li class="list-group-item pagelink"> <a href="contact"><i class="fas fa-envelope"></i> Contacts</a></li>
         <li class="list-group-item pagelink"> <a href="change_password"><i class="fas fa-lock"></i> Change Password</a></li>
         <li class="list-group-item pagelink"><a href="logout.php"> <i class="fas fa-power-off"></i> LOGOUT</a></li>
