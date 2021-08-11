@@ -9,6 +9,11 @@ $_SESSION['page']='tests';
 
 include('../connect.php');
 
+$query = "SELECT * FROM clinics; "; // db query
+$statement = $con->prepare($query);  // prepare query
+$statement->execute();
+$clinics = $statement->fetchAll();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,6 +76,23 @@ include('../connect.php');
                                     <label> Price</label>
                                     <input type="number" class="form-control" id="price" name="price" placeholder="Enter price" required>
                                 </div>
+
+                                <?php if(is_admin()){ ?>
+                                    <div class="form-group">
+                                        <label> Clinic</label>
+                                        <select id="clinic_id" class="form-control" name="clinic_id" title="clinic">
+                                            <option value="-1">Select clinic</option>
+                                            <?php
+                                            foreach ($clinics as $clinic){?>
+                                                <option value='<?=$clinic['id']?>'><?=$clinic['name']?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                <?php }else{?>
+                                    <input type="hidden" name="clinic_id" value="<?=get_current_user_data()['clinic_id']?>"/>
+                                <?php }?>
+
+
                             </div>
                             <div class="modal-footer">
                                 <input type="hidden" name="m_id" id="m_id" />
@@ -102,6 +124,21 @@ include('../connect.php');
                                     <label> Price</label>
                                     <input type="number" class="form-control" id="edit_test_price" name="price" placeholder="Enter  price" required>
                                 </div>
+
+                                <?php if(is_admin()){ ?>
+                                    <div class="form-group">
+                                        <label> Clinic</label>
+                                        <select id="edit_clinic_id" class="form-control" name="clinic_id" title="clinic">
+                                            <option value="-1">Select clinic</option>
+                                            <?php
+                                            foreach ($clinics as $clinic){?>
+                                                <option value='<?=$clinic['id']?>'><?=$clinic['name']?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                <?php }else{?>
+                                    <input type="hidden" id="edit_clinic_id" name="clinic_id" value="<?=get_current_user_data()['clinic_id']?>"/>
+                                <?php }?>
                             </div>
                             <div class="modal-footer">
                                 <input type="hidden" name="test_id" id="edit_test_id" />

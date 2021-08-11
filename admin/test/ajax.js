@@ -82,6 +82,7 @@ $(document).ready(function(){
                 $('#test_edit_modal').modal('show');
                 $('#test_edit_form #edit_test_name').val(data.name);
                 $('#test_edit_form #edit_test_id').val(test_id);
+                $('#test_edit_form #edit_clinic_id').val(data.clinic_id);
                 $('#test_edit_form #edit_test_price').val(data.price);
             }
         })

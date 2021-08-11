@@ -19,12 +19,13 @@ $stmt=$con->prepare("SELECT id FROM tests WHERE name = ? LIMIT 1 ");
 
 
 $statement = $con->prepare("
-   INSERT INTO tests (name  , price) 
-   VALUES (:name , :price)");
+   INSERT INTO tests (name  , price , clinic_id) 
+   VALUES (:name , :price , :clinic_id)");
 $result = $statement->execute(
     array(
         ':name'            => $_POST["name"],
-        ':price'           => $_POST["price"]
+        ':price'           => $_POST["price"],
+        ':clinic_id'       => $_POST['clinic_id']
     )
 );
 if(!empty($result))

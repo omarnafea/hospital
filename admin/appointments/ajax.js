@@ -129,6 +129,7 @@ $(document).on('submit', '#test_result_form', function(event){
                 alert("Result saved successfully");
                 $('#test_result_form')[0].reset();
                 $('#test_result_modal').modal('hide');
+                get_appointments();
 
             }else{
                 alert(data.error);
@@ -139,6 +140,56 @@ $(document).on('submit', '#test_result_form', function(event){
 
 });
 
+
+$(document).on('submit', '#edit_test_result_form', function(event){
+    event.preventDefault();
+    $.ajax({
+        url:"update_result.php",
+        method:'POST',
+        data:new FormData(this),
+        contentType:false,
+        processData:false,
+        dataType : "json" ,
+        success:function(data)
+        {
+            if(data.success){
+                alert("Result saved successfully");
+                $('#edit_test_result_form')[0].reset();
+                $('#edit_test_result_modal').modal('hide');
+                get_appointments();
+            }else{
+                alert(data.error);
+            }
+        }
+    });
+
+});
+
+
+
+function show_update_result_form(result_id){
+
+    $.ajax({
+        url:"get_result.php",
+        method:'POST',
+        data:{result_id : result_id},
+        dataType  : 'json',
+        success:function(data)
+        {
+            $("#edit_test_result_modal").modal("show");
+            $("#edit_test_result_text").val(data.data.result);
+            $("#edit_result_id").val(result_id);
+            $(".view-attachment").attr("href", "../../uploads/" + data.data.attatchment)
+            if(data.success){
+
+                console.log(data.data);
+            }else{
+                    alert(data.message);
+            }
+        }
+    });
+    console.log(result_id);
+}
 $(document).on('submit', '#appointment_form', function(event){
     event.preventDefault();
     $.ajax({

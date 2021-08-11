@@ -33,11 +33,13 @@ $response['success'] = false;
 
 
 
-    $query = "Select appointments.*  , clinics.name as clinic_name , tests.name as test_name , patients.name as patient
+    $query = "Select appointments.*  , clinics.name as clinic_name , tests.name as test_name , patients.name as patient,
+               test_result.id as result_id
               from appointments 
               inner join clinics on  appointments.clinic_id = clinics.id 
               inner join patients on patients.id  = appointments.patient_id 
               Left join tests on  tests.id = appointments.test_id 
+              Left join test_result on  test_result.appointment_id = appointments.id 
               WHERE 1  {$condition}
               ";
 
@@ -45,6 +47,7 @@ $response['success'] = false;
     $check_appointment = $con->prepare($query);
     $result = $check_appointment->execute($params);
     $data = $check_appointment->fetchAll(PDO::FETCH_ASSOC);
+
     $table = '';
     if(!empty($data)){
 
@@ -89,7 +92,11 @@ $response['success'] = false;
             $test_result_button = '';
 
             if(isset($row['test_name'])){
-                $test_result_button = ' <button type="button"  class="btn btn-warning d-block mb-1"  onclick="show_test_result_form('.$row["id"].')">Test Result</button>';
+                if(isset($row['result_id'])){
+                    $test_result_button = ' <button type="button"  class="btn btn-warning d-block mb-1"  onclick="show_update_result_form('.$row["result_id"].')">Update Result</button>';
+                }else{
+                    $test_result_button = ' <button type="button"  class="btn btn-warning d-block mb-1"  onclick="show_test_result_form('.$row["id"].')">Test Result</button>';
+                }
             }
 
 
