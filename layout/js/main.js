@@ -226,8 +226,7 @@ function update_appointment(id){
                 $("#edit_modal").modal();
                 $("#edit_modal #edit_clinic_id").val(data.clinic_id);
 
-                let test_id = data.test_id !== null ? data.test_id: '-1' ;
-                $("#edit_modal #edit_test_id").val(test_id);
+
                 $("#edit_modal #edit_appointment_date").val(data.appointment_date);
                 $("#edit_modal #edit_from_time").val(data.from_time);
                 $("#edit_modal #edit_to_time").val(data.to_time);

@@ -53,13 +53,8 @@ $appointment_date = $_POST['appointment_date'];
 $from_time = $_POST['from_time'];
 $to_time = $_POST['to_time'];
 $clinic_id = $_POST['clinic_id'];
-$test_id = $_POST['test_id'] != '-1' ? $_POST['test_id'] : null;
-/*
-if($_POST['test_id'] != '-1'){
-    $test_id = $_POST['test_id'];
-}else{
-    $test_id = null''
-}*/
+$test_ids = isset($_POST['test_ids']) ? $_POST['test_ids'] : [];
+
 
 //$time_check = " AND   ? >= from_time AND  ? <= to_time";
 $time_check = " AND  (  (? BETWEEN to_time AND from_time) OR 
@@ -81,19 +76,29 @@ $data = $check_appointment->fetchAll();
 if(empty($data)){
 
     $statement = $con->prepare("
-   INSERT INTO appointments (patient_id, clinic_id,appointment_date,from_time,to_time , test_id)
-                 VALUES (:patient_id, :clinic_id,:appointment_date,:from_time , :to_time , :test_id)");
+   INSERT INTO appointments (patient_id, clinic_id,appointment_date,from_time,to_time )
+                 VALUES (:patient_id, :clinic_id,:appointment_date,:from_time , :to_time )");
     $result = $statement->execute(
         array(
             ':patient_id'        => $patient_id ,
             ':clinic_id'         => $clinic_id,
             ':appointment_date'  => $appointment_date,
             ':from_time'         => $_POST["from_time"],
-            ':to_time'           => $_POST["to_time"],
-            ':test_id'           => $test_id
+            ':to_time'           => $_POST["to_time"]
         )
     );
     $response['success'] = true;
+
+
+    $app_id = $con->lastInsertId();
+
+    if(!empty($test_ids)){
+
+        foreach ($test_ids as $new_test){
+                add_test($new_test , $app_id);
+            }
+
+    }
     //send SMS using SMS service
 }else{
 
@@ -102,3 +107,16 @@ if(empty($data)){
 }
 
 die(json_encode($response));
+
+function add_test($test_id , $app_id){
+    global $con;
+    $statement = $con->prepare("
+   INSERT INTO appointment_tests (appointment_id , test_id) 
+   VALUES (:appointment_id , :test_id)");
+    $result = $statement->execute(
+        array(
+            ':appointment_id'  => $app_id ,
+            ':test_id'         => $test_id
+        )
+    );
+}

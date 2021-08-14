@@ -52,7 +52,7 @@ if(isset($_FILES['attachment'])){
 
 
     $params[] = $Image;
-    $attachment_query = ",  attatchment = ?";
+    $attachment_query = ",  attachment = ?";
 
 
 }
@@ -61,7 +61,7 @@ $params[] = $_POST['result_id'];
 
 
 $statement = $con->prepare("
-   UPDATE  test_result
+   UPDATE  appointment_tests
     SET   result = ? $attachment_query
     where id = ?");
 $result = $statement->execute(

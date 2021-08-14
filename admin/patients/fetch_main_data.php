@@ -28,7 +28,12 @@ foreach($result as $row)
                <td>'.$row['gender'].'</td>
                <td>'.$have_insurance.'</td>
                <td><button type="button" name="update" id="'.$row["id"].'" class="btn btn-primary update">Edit</button></td>
-               <td><button type="button" name="action" id="'.$row["id"].'" class="btn btn-primary action">Action</button></td>
+               <td>
+               <button type="button" name="action" id="'.$row["id"].'" class="btn btn-primary action">Action</button>
+               <a href="../appointments/index.php?patient_id='.$row["id"].'"  class="btn btn-info mt-1"><i class="fa fa-info-circle"></i> Details</a>
+               
+               </td>
+               
                ';
 
                

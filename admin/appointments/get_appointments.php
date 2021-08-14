@@ -12,11 +12,9 @@ $response['success'] = false;
         $params[] = $_POST['from_date'];
         $params[] = $_POST['to_date'];
     }else{
-
         if(isset($_POST['from_date']) && !empty($_POST['from_date'])){
             $condition = " AND appointments.appointment_date  = ? ";
             $params[] = $_POST['from_date'];
-
         }else{
             $condition = " AND appointments.appointment_date >= now()";
         }
@@ -29,20 +27,18 @@ $response['success'] = false;
         $condition .= " AND appointments.clinic_id = ? ";
     }
 
+    if(isset($_POST['patient_id'])){
+        $params[] = $_POST['patient_id'];
+        $condition .= " AND appointments.patient_id = ? ";
+    }
 
 
 
-
-    $query = "Select appointments.*  , clinics.name as clinic_name , tests.name as test_name , patients.name as patient,
-               test_result.id as result_id
+    $query = "Select appointments.*  , clinics.name as clinic_name  , patients.name as patient
               from appointments 
               inner join clinics on  appointments.clinic_id = clinics.id 
               inner join patients on patients.id  = appointments.patient_id 
-              Left join tests on  tests.id = appointments.test_id 
-              Left join test_result on  test_result.appointment_id = appointments.id 
-              WHERE 1  {$condition}
-              ";
-
+              WHERE 1  {$condition}";
 
     $check_appointment = $con->prepare($query);
     $result = $check_appointment->execute($params);
@@ -53,7 +49,37 @@ $response['success'] = false;
 
         $i = 1;
         foreach ($data as $row){
-            $test = isset($row['test_name']) ? $row['test_name'] : "N/A";
+            $test_html =  "N/A";
+
+             $query = "Select 	appointment_tests.*  , tests.name as test_name
+              from appointment_tests 
+              inner join tests on  appointment_tests.test_id = tests.id
+              WHERE appointment_tests.appointment_id = ?";
+            $get_tests = $con->prepare($query);
+            $result = $get_tests->execute([$row['id']]);
+            $tests = $get_tests->fetchAll(PDO::FETCH_ASSOC);
+            $test_result_button = '';
+
+
+            if(!empty($tests)){
+
+                $test_html =  "";
+
+
+                foreach ($tests as $test_row){
+                    $test_html .= "{$test_row['test_name']}  <a href='javascript:;' onclick='show_update_result_form(".$test_row['id'].")'><i class='fas fa-poll-h'></i></a> </br>";
+                }
+
+                if(isset($row['test_name'])){
+                    if(isset($row['result_id'])){
+                        $test_result_button = ' <button type="button"  class="btn btn-warning d-block mb-1"  onclick="show_update_result_form('.$row["result_id"].')">Update Result</button>';
+                    }else{
+                        $test_result_button = ' <button type="button"  class="btn btn-warning d-block mb-1"  onclick="show_test_result_form('.$row["id"].')">Test Result</button>';
+                    }
+                }
+
+            }
+
 
             $is_canceled = $row['is_canceled'] == '1';
             $is_confirmed = $row['is_confirmed'] == '1';
@@ -89,17 +115,6 @@ $response['success'] = false;
             $table_date.= "<div>From : {$table_from}</div>";
             $table_date.= "<div>To : {$to_from}</div>";
 
-            $test_result_button = '';
-
-            if(isset($row['test_name'])){
-                if(isset($row['result_id'])){
-                    $test_result_button = ' <button type="button"  class="btn btn-warning d-block mb-1"  onclick="show_update_result_form('.$row["result_id"].')">Update Result</button>';
-                }else{
-                    $test_result_button = ' <button type="button"  class="btn btn-warning d-block mb-1"  onclick="show_test_result_form('.$row["id"].')">Test Result</button>';
-                }
-            }
-
-
 
 
             $table .= '<tr id="'.$row["id"].'">
@@ -107,8 +122,9 @@ $response['success'] = false;
                <td>'.$row['patient'].'</td>
                <td>'.$row['clinic_name'].'</td>
                <td>'.$table_date.'</td>
-               <td>'.$test.'</td>
+               <td>'.$test_html.'</td>
                <td>'.$status.'</td>
+               <td>'.$row['notes'].'</td>
                <td>
                    <button type="button"   class="btn btn-primary update-appointment d-block mb-1" onclick="update_appointment('.$row["id"].')">Edit</button>
                    '.$cancel_btn.'
@@ -122,10 +138,4 @@ $response['success'] = false;
     $response['data'] = $data;
     $response['table'] = $table;
 
-
-
-
-
-
-
-die(json_encode($response));
+    die(json_encode($response));

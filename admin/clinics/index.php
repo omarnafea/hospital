@@ -52,30 +52,30 @@ include('../connect.php');
     </table>
 
    
-  
-<div id="user_add_modal" class="modal fade">
- <div class="modal-dialog">
-  <form method="post" id="user_add_form" enctype="multipart/form-data">
-   <div class="modal-content">
-    <div class="modal-header">
-     
-     <h4 class="modal-title">Add Clinic</h4>
-    </div>
-    <div class="modal-body">
-     <div class="form-group">
-        <label> Name</label>
-        <input type="Text" class="form-control" id="name" name="name" placeholder="Enter name" required>
+
+      <div id="user_add_modal" class="modal fade">
+          <div class="modal-dialog">
+              <form method="post" id="user_add_form" enctype="multipart/form-data">
+                  <div class="modal-content">
+                      <div class="modal-header">
+
+                          <h4 class="modal-title">Add Clinic</h4>
+                      </div>
+                      <div class="modal-body">
+                          <div class="form-group">
+                              <label> Name</label>
+                              <input type="Text" class="form-control" id="name" name="name" placeholder="Enter name" required>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <input type="hidden" name="m_id" id="m_id" />
+                          <input type="submit" name="action"  class="btn btn-success" value="Add" />
+                          <button type="button" class="btn btn-default close_btn" data-dismiss="modal">Close</button>
+                      </div>
+                  </div>
+              </form>
+          </div>
       </div>
-    </div>
-    <div class="modal-footer">
-     <input type="hidden" name="m_id" id="m_id" />
-     <input type="submit" name="action"  class="btn btn-success" value="Add" />
-     <button type="button" class="btn btn-default close_btn" data-dismiss="modal">Close</button>
-    </div>
-   </div>
-  </form>
- </div>
-</div>
 
 
 

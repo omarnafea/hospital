@@ -21,7 +21,6 @@ function count_visitors(){
 
 
         function get_appointments_count(){
-
             global $con;
             $query = "SELECT COUNT(id) as count FROM appointments WHERE appointment_date >= now() ";
             $params = [];

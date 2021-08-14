@@ -23,6 +23,18 @@ $statement = $con->prepare("SELECT * from patients");
 $statement->execute();
 $patients = $statement->fetchAll();
 
+$patient_id_number = null;
+
+$patient = null;
+
+if(isset($_GET['patient_id'])){
+    $statement = $con->prepare("SELECT * from patients where id = ?");
+    $statement->execute([$_GET['patient_id']]);
+    $patient_details = $statement->fetch();
+    $patient_id_number = $patient_details['id_number'];
+
+}
+
 
 
 ?>
@@ -62,18 +74,72 @@ $patients = $statement->fetchAll();
 
         </div>
         <div class="col-md-10">
+
+
+
+
+            <?php
+            if(isset($patient_details)){?>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <span class="font-weight-bolder">Name : </span>
+                        <span><?=$patient_details['name']?></span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="font-weight-bolder">Mobile : </span>
+                        <span><?=$patient_details['mobile']?></span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="font-weight-bolder">Birth Date : </span>
+                        <span><?=$patient_details['birth_date']?></span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="font-weight-bolder">Place of Living : </span>
+                        <span><?=$patient_details['place_of_living']?></span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="font-weight-bolder">ID Number : </span>
+                        <span><?=$patient_details['id_number']?></span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="font-weight-bolder">Gender : </span>
+                        <span><?=$patient_details['gender']?></span>
+                    </div>
+                    <div class="col-md-4">
+                        <span class="font-weight-bolder">Have Insurance : </span>
+                        <span><?=$patient_details['have_insurence'] == 1 ? "Yes" : 'no'?></span>
+                    </div>
+
+                </div>
+
+
+            <?php } ?>
+
+
+
+
             <button class="btn btn-primary my-2" onclick="go_to_new()">New Appointment</button>
 
 
-            <div class="form-inline my-2">
-                <div class="form-group mx-1" >
-                    <input type="date" class="form-control" title="from date" id="filter_from_date">
+
+            <?php
+            if(!isset($patient_details)){ ?>
+                <div class="form-inline my-2">
+                    <div class="form-group mx-1" >
+                        <input type="date" class="form-control" title="from date" id="filter_from_date">
+                    </div>
+                    <div class="form-group">
+                        <input type="date" class="form-control mx-1" title="to date" id="filter_to_date">
+                    </div>
+                    <button class="btn btn-primary mx-1" type="button" id="filter_date" onclick="filter_date()">Filter </button>
                 </div>
-                <div class="form-group">
-                    <input type="date" class="form-control mx-1" title="to date" id="filter_to_date">
-                </div>
-                <button class="btn btn-primary mx-1" type="button" id="filter_date" onclick="filter_date()">Filter </button>
-            </div>
+
+           <?php }?>
+
+
+
+
             <div id="my_appointments">
                 <table id="appointments_table" class="table table-bordered table-striped">
                     <thead>
@@ -84,6 +150,7 @@ $patients = $statement->fetchAll();
                         <th scope="col">Date</th>
                         <th scope="col">Test</th>
                         <th scope="col">Status</th>
+                        <th scope="col">Notes</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
@@ -115,9 +182,8 @@ $patients = $statement->fetchAll();
                                 </div>
 
                                 <div class="form-group">
-                                    <label> Test (optional)</label>
-                                    <select id="edit_test_id" class="form-control" name="test_id" title="test">
-                                        <option value="-1">Select Test</option>
+                                    <label> Tests (optional)</label>
+                                    <select id="edit_test_id" class="form-control" name="test_ids[]" title="test" multiple>
                                         <?php
                                         foreach ($tests as $test){?>
                                             <option value='<?=$test['id']?>'><?=$test['name']?> / <?=$test['price']?></option>
@@ -140,6 +206,11 @@ $patients = $statement->fetchAll();
                                 <div class="form-group">
                                     <label> To Time</label>
                                     <input type="time" class="form-control" id="edit_to_time" name="to_time" placeholder="To Time" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="edit_notes"> Notes </label>
+                                    <textarea class="form-control" rows="4" cols="40" id="edit_notes" name="notes"></textarea>
                                 </div>
 
 
@@ -204,7 +275,7 @@ $patients = $statement->fetchAll();
                                 </div>
                                 <div class="form-group">
                                     <label> Attachment </label>
-                                    <input type="file" name="attachment" accept=".png, .jpg, .jpeg ,.pdf" required>
+                                    <input type="file" name="attachment" accept=".png, .jpg, .jpeg ,.pdf" >
                                 </div>
                                 <a class="btn btn-primary view-attachment" target="_blank">View Attachment</a>
                             </div>
@@ -316,9 +387,8 @@ $patients = $statement->fetchAll();
 
 
                             <div class="form-group">
-                                <label> Test (optional)</label>
-                                <select id="test_id" class="form-control" name="test_id" title="test">
-                                    <option value="-1">Select Test</option>
+                                <label> Tests (optional)</label>
+                                <select  class="form-control" name="test_ids[]" title="test" multiple>
                                     <?php
                                     foreach ($tests as $test){?>
                                         <option value='<?=$test['id']?>'><?=$test['name']?> / <?=$test['price']?></option>
@@ -326,6 +396,7 @@ $patients = $statement->fetchAll();
 
                                 </select>
                             </div>
+
 
                             <div class="form-group">
                                 <label> Appointment Date</label>
@@ -416,19 +487,18 @@ $patients = $statement->fetchAll();
     </div>
 
 
-
-
-
-
-
-
 </div>
 
-<script  src="ajax.js">
+<script  src="ajax.js"></script>
+<script>
 
+    get_appointments(<?=$patient_id_number?>);
 
+    <?php
+    if(isset($patient_details)){?>
+        $("#patient_id").val(<?=$patient_details['id']?>).change().prop("disabled" , true);
+    <?php } ?>
 
 </script>
-
 </body>
 </html>

@@ -172,16 +172,15 @@ function show_update_result_form(result_id){
     $.ajax({
         url:"get_result.php",
         method:'POST',
-        data:{result_id : result_id},
+        data:{id : result_id},
         dataType  : 'json',
         success:function(data)
         {
             $("#edit_test_result_modal").modal("show");
             $("#edit_test_result_text").val(data.data.result);
             $("#edit_result_id").val(result_id);
-            $(".view-attachment").attr("href", "../../uploads/" + data.data.attatchment)
+            $(".view-attachment").attr("href", "../../uploads/" + data.data.attachment)
             if(data.success){
-
                 console.log(data.data);
             }else{
                     alert(data.message);
@@ -229,11 +228,9 @@ function filter_date(){
     var to_date = $("#filter_to_date").val();
     get_appointments(null ,from_date ,  to_date);
 }
-get_appointments();
-
 function get_appointments(id_number = null , from_date = null , to_date = null){
 
-    var data = {id_number : id_number , from_date :from_date , to_date : to_date};
+    var data = {id_number : id_number , from_date :from_date , to_date : to_date };
     $.ajax({
         url:"get_appointments.php",
         method:'POST',
@@ -292,14 +289,17 @@ function update_appointment(id){
         success:function(data)
         {
             $("#edit_modal").modal();
-            $("#edit_modal #edit_clinic_id").val(data.clinic_id);
+            $("#edit_modal #edit_clinic_id").val(data.appointment.clinic_id);
 
-            let test_id = data.test_id !== null ? data.test_id: '-1' ;
-            $("#edit_modal #edit_test_id").val(test_id);
-            $("#edit_modal #edit_appointment_date").val(data.appointment_date);
-            $("#edit_modal #edit_from_time").val(data.from_time);
-            $("#edit_modal #edit_to_time").val(data.to_time);
-            $("#edit_modal #edit_appointment_id").val(data.id);
+            let test_ids = data.tests_ids ;
+
+            console.log(test_ids);
+            $("#edit_modal #edit_test_id").val(test_ids);
+            $("#edit_modal #edit_appointment_date").val(data.appointment.appointment_date);
+            $("#edit_modal #edit_from_time").val(data.appointment.from_time);
+            $("#edit_modal #edit_to_time").val(data.appointment.to_time);
+            $("#edit_modal #edit_appointment_id").val(data.appointment.id);
+            $("#edit_modal #edit_notes").val(data.appointment.notes);
 
 
         }

@@ -6,6 +6,12 @@ $_SESSION['page']='appointment';
 
 include '../connect.php';
 
+
+
+
+
+
+
 $statement = $con->prepare("SELECT clinics.* , users.name as doctor 
                               FROM clinics inner join  users on users.clinic_id = clinics.id and users.privilege_id = 1");
 $statement->execute();
@@ -13,9 +19,6 @@ $clinics = $statement->fetchAll();
 
 
 
-$statement = $con->prepare("SELECT * from tests");
-$statement->execute();
-$tests = $statement->fetchAll();
 
 ?>
 <!DOCTYPE html>
@@ -39,12 +42,16 @@ $tests = $statement->fetchAll();
 <body>
 <?php include "../include/template/navbar.php"?>
 
-<div class="contact-us">
+
+
+
+
+<div class="contact-us app-page">
 		<div class="container-fluid">
-			
+
 
 		<h2 class="text-center h1">Appointments</h2>
-            
+
 <div class="form-inline">
     <input class="form-control" id="search_id_number" title="id number" placeholder="Query By ID Number">
     <button class="btn btn-primary" onclick="search_by_id_number()">Query</button>
@@ -67,7 +74,7 @@ $tests = $statement->fetchAll();
             <th scope="col">Date</th>
             <th scope="col">From Time</th>
             <th scope="col">To Time</th>
-            <th scope="col">Test</th>
+            <th scope="col">Tests</th>
             <th scope="col">Status</th>
             <th scope="col">Action</th>
         </tr>
@@ -101,17 +108,7 @@ $tests = $statement->fetchAll();
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label> Test (optional)</label>
-                        <select id="edit_test_id" class="form-control" name="test_id" title="test">
-                            <option value="-1">Select Test</option>
-                            <?php
-                            foreach ($tests as $test){?>
-                                <option value='<?=$test['id']?>'><?=$test['name']?> / <?=$test['price']?></option>
-                            <?php } ?>
 
-                        </select>
-                    </div>
 
                     <div class="form-group">
                         <label> Appointment Date</label>
@@ -218,17 +215,7 @@ $tests = $statement->fetchAll();
                 </select>
             </div>
 
-            <div class="form-group">
-                <label> Test (optional)</label>
-                <select id="test_id" class="form-control" name="test_id" title="test">
-                    <option value="-1">Select Test</option>
-                    <?php
-                    foreach ($tests as $test){?>
-                        <option value='<?=$test['id']?>'><?=$test['name']?> / <?=$test['price']?></option>
-                    <?php } ?>
 
-                </select>
-            </div>
 
             <div class="form-group">
                 <label> Appointment Date</label>
@@ -313,12 +300,49 @@ $tests = $statement->fetchAll();
 </div>
 
 
-         	
+
          </div>
+
+
+
 
 
 </div>
 
+
+
+<div id="login_modal" class="modal fade">
+    <div class="modal-dialog">
+        <form method="post" id="login_form" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title">Login</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label> ID Number</label>
+                        <input type="number" class="form-control" id="login_id_number" name="id_number" placeholder="Enter ID Number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label> Password</label>
+                        <input type="password" class="form-control" id="login_password" name="password" placeholder="Enter Password" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" name="action"  class="btn btn-success" value="Login" />
+                    <button type="button" class="btn btn-default close_btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+
+</script>
 
 
 <?php include "../include/template/footer.php"?>
@@ -326,30 +350,43 @@ $tests = $statement->fetchAll();
         	<script src="../layout/js/main.js" ></script>
 
 
-<script>
-	
-	$(document).ready(function(){
 
-  var lastScrollTop = 0;
-$(window).scroll(function(event){
-   var st = $(this).scrollTop();
-   if (st > lastScrollTop){
-       
-       $(".navbar").css("padding", "0px");
-       $(".navbar-brand > span").css("font-size", "20px");
 
-      
-       
-   } else {
-      $(".navbar").css("padding", "3px");
-      $(".navbar-brand > span").css("font-size", "30px");
-   }
-   lastScrollTop = st;
-});
+<?php
+if(!isset($_SESSION['patient_id'])){?>
+    <script>
+
+        $("#login_modal").modal('show');
+        $(".app-page").hide();
+        console.log('ok');
 
 
 
 
-</script>
+
+        $(document).on('submit', '#login_form', function(event){
+            event.preventDefault();
+            $.ajax({
+                url:"../api/patient_login.php",
+                method:'POST',
+                data:new FormData(this),
+                contentType:false,
+                processData:false,
+                dataType  : 'json',
+                success:function(data)
+                {
+                    if(data.success){
+                       window.location.reload();
+                    }else{
+                        alert(data.message);
+                    }
+                }
+            });
+
+        });
+
+    </script>
+
+<?php } ?>
 </body>
 </html>

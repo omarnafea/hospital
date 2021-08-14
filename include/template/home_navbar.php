@@ -1,4 +1,5 @@
 
+
 <!-- start Nav-bar-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light  fixed-top">
    <div class="container">
@@ -23,7 +24,25 @@
 	      <li class="nav-item">
 	        <a class="nav-link" href="appointment">Book Appointment</a>
 	      </li>
-	      
+
+           <?php
+           if(isset($_SESSION['patient_id'])){
+               $patient = get_patient_data();
+               ?>
+               <li class="nav-item dropdown">
+                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">
+                       <?=$patient['name']?>
+                   </a>
+                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                       <div class="dropdown-divider"></div>
+                       <a class="dropdown-item" href="logout.php">Logout</a>
+                   </div>
+               </li>
+
+           <?php } ?>
+
+
 	      
 	    </ul>
 	   

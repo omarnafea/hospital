@@ -48,10 +48,9 @@ if(isset($patient_id)){
     setcookie("patient_id", $patient_id, time()+31536000,'/');
 
 
-    $query = "Select appointments.*  , clinics.name as clinic_name , tests.name as test_name
+    $query = "Select appointments.*  , clinics.name as clinic_name 
               from appointments 
               inner join clinics on  appointments.clinic_id = clinics.id 
-              Left join tests on  tests.id = appointments.test_id 
                WHERE patient_id = ? 
               ";
 
