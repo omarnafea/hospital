@@ -316,8 +316,9 @@ $clinics = $statement->fetchAll();
         <form method="post" id="login_form" enctype="multipart/form-data">
             <div class="modal-content">
                 <div class="modal-header">
-
                     <h4 class="modal-title">Login</h4>
+                    <input type="button" name=""  class="btn btn-info" value="Signup" onclick="show_signip()" />
+
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -339,6 +340,47 @@ $clinics = $statement->fetchAll();
     </div>
 </div>
 
+<div id="signup_modal" class="modal fade">
+    <div class="modal-dialog">
+        <form method="post" id="signup_form" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Sign Up</h4>
+                    <input type="button" name=""  class="btn btn-info" value="Login" onclick="show_login()" />
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="mb-0"> ID Number</label>
+                        <input type="number" class="form-control" id="login_id_number" name="id_number" placeholder="Enter ID Number" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-0"> Full Name</label>
+                        <input type="text" class="form-control"  name="name" placeholder="Enter Your Full Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="mb-0"> Mobile</label>
+                        <input type="number" class="form-control"  name="mobile" placeholder="Enter Your Mobile" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="mb-0"> Password</label>
+                        <input type="password" class="form-control"  name="password" placeholder="Enter Password" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-0"> Confirm Password</label>
+                        <input type="password" class="form-control"  name="confirm_password" placeholder="Confirm Password" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" name="action"  class="btn btn-success" value="Save" />
+                    <button type="button" class="btn btn-default close_btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
 
 
@@ -346,23 +388,15 @@ $clinics = $statement->fetchAll();
 
 
 <?php include "../include/template/footer.php"?>
-<script src="../layout/js/footer.js"></script>
+            <script src="../layout/js/footer.js"></script>
         	<script src="../layout/js/main.js" ></script>
-
-
-
-
 <?php
 if(!isset($_SESSION['patient_id'])){?>
     <script>
-
         $("#login_modal").modal('show');
         $(".app-page").hide();
+
         console.log('ok');
-
-
-
-
 
         $(document).on('submit', '#login_form', function(event){
             event.preventDefault();
@@ -384,6 +418,36 @@ if(!isset($_SESSION['patient_id'])){?>
             });
 
         });
+        $(document).on('submit', '#signup_form', function(event){
+            event.preventDefault();
+            $.ajax({
+                url:"../api/sign_up.php",
+                method:'POST',
+                data:new FormData(this),
+                contentType:false,
+                processData:false,
+                dataType  : 'json',
+                success:function(data)
+                {
+                    if(data.success){
+                       window.location.reload();
+                    }else{
+                        alert(data.message);
+                    }
+                }
+            });
+
+        });
+
+
+        function show_login() {
+            $("#login_modal").modal('show');
+            $("#signup_modal").modal('hide');
+        }
+        function show_signip() {
+            $("#signup_modal").modal('show');
+            $("#login_modal").modal('hide');
+        }
 
     </script>
 

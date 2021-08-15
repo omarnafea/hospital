@@ -5,34 +5,8 @@ $response = [];
 $response['success'] = false;
 
 
-$patient_id = isset($_COOKIE['patient_id']) ? $_COOKIE['patient_id'] : null;
-$id_number =  isset($_POST['id_number']) && !empty($_POST['id_number'])  ?   $_POST['id_number'] : null;
+$patient_id = $_SESSION['patient_id'];
 
-
-if(!$id_number && !$patient_id){
-    $response['success'] = false;
-    $response['message'] = 'missing data';
-    die(json_encode($response));
-}
-
-
-if(isset($id_number)){
-    $stmt =  $con->prepare(
-        "SELECT * FROM  patients
-    WHERE id_number = ? LIMIT 1");
-
-    $result= $stmt->execute(array(trim($id_number)));
-    $patient = $stmt->fetch();
-    $check_patient = $stmt->rowCount();
-
-    if($check_patient   > 0){
-        $patient_id = $patient['id'];
-    }else{
-        $response['success'] = false;
-        $response['message'] = 'Patient not found';
-        die(json_encode($response));
-    }
-}
 
 $patient = null;
 

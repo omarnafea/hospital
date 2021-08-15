@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 14, 2021 at 08:58 PM
+-- Generation Time: Aug 15, 2021 at 06:46 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -135,21 +135,22 @@ CREATE TABLE IF NOT EXISTS `patients` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `mobile` varchar(15) NOT NULL,
-  `place_of_living` varchar(255) NOT NULL,
-  `birth_date` date NOT NULL,
+  `place_of_living` varchar(255) DEFAULT NULL,
+  `birth_date` date DEFAULT NULL,
   `id_number` varchar(10) NOT NULL,
-  `gender` enum('male','female') NOT NULL,
+  `gender` enum('male','female') DEFAULT NULL,
   `have_insurence` tinyint(1) DEFAULT '0',
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `patients`
 --
 
 INSERT INTO `patients` (`id`, `name`, `mobile`, `place_of_living`, `birth_date`, `id_number`, `gender`, `have_insurence`, `password`) VALUES
-(3, 'omar', '0795496663', 'amman', '2019-12-31', '1111111111', 'male', 1, '');
+(3, 'omar', '0795496663', 'amman', '2019-12-31', '1111111111', 'male', 1, '40BD001563085FC35165329EA1FF5C5ECBDBBEEF'),
+(5, 'ahmad', '0795496666', NULL, NULL, '2222222222', NULL, 0, 'fb96549631c835eb239cd614cc6b5cb7d295121a');
 
 -- --------------------------------------------------------
 
@@ -200,22 +201,6 @@ INSERT INTO `tests` (`id`, `name`, `price`, `clinic_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `test_result`
---
-
-DROP TABLE IF EXISTS `test_result`;
-CREATE TABLE IF NOT EXISTS `test_result` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `appointment_id` int(11) NOT NULL,
-  `result` text NOT NULL,
-  `attatchment` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `appointment_id` (`appointment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `users`
 --
 
@@ -262,12 +247,6 @@ ALTER TABLE `appointments`
 --
 ALTER TABLE `tests`
   ADD CONSTRAINT `tests_ibfk_1` FOREIGN KEY (`clinic_id`) REFERENCES `clinics` (`id`);
-
---
--- Constraints for table `test_result`
---
-ALTER TABLE `test_result`
-  ADD CONSTRAINT `test_result_ibfk_1` FOREIGN KEY (`appointment_id`) REFERENCES `appointments` (`id`);
 
 --
 -- Constraints for table `users`
