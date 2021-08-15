@@ -52,10 +52,6 @@ $clinics = $statement->fetchAll();
 
 		<h2 class="text-center h1">Appointments</h2>
 
-<div class="form-inline">
-    <input class="form-control" id="search_id_number" title="id number" placeholder="Query By ID Number">
-    <button class="btn btn-primary" onclick="search_by_id_number()">Query</button>
-</div>
 <div id="patient_data" class="d-none my-3">
     <div class="row">
         <div class="col text-info"> Name :  <span class="name"></span> </div>

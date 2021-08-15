@@ -1,6 +1,7 @@
 <?php
 session_start();
 $_SESSION['page']='contact';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +21,12 @@ $_SESSION['page']='contact';
 	<link rel="stylesheet" type="text/css" href="../layout/css/main.css">
 </head>
 <body>
-<?php include "../include/template/navbar.php"?>
+
+<?php
+include ("../connect.php");
+
+include "../include/template/navbar.php"
+?>
 
 <div class="contact-us">
 		<div class="container">

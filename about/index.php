@@ -20,7 +20,12 @@ $_SESSION['page']='about';
 	<link rel="stylesheet" type="text/css" href="../layout/css/main.css">
 </head>
 <body>
-<?php include "../include/template/navbar.php"?>
+<?php
+include ("../connect.php");
+
+include "../include/template/navbar.php";
+
+?>
 
 <div class="about-us">
 		<div class="container">
