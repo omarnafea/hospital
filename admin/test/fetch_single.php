@@ -9,12 +9,11 @@ include('../connect.php');
  
  $output = array();
  $get_maininfo_data = $con->prepare(
-  "SELECT * FROM  tests
+  "SELECT tests.* FROM  tests
     WHERE id = ? LIMIT 1");
  $get_maininfo_data->execute(array($_POST['test_id']));
  $result = $get_maininfo_data->fetch();
-  $output["name"]           =   $result["name"];
-  $output["price"]           =   $result["price"];
-  echo json_encode($output);
+
+  echo json_encode($result);
 
 ?>

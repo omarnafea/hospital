@@ -11,6 +11,7 @@ function get_patient_data(){
         return null;
     }
 
+
     $query = "SELECT *  from patients  WHERE id = ? ";
     $params = [$_SESSION['patient_id']];
     $stmt=$con->prepare($query);

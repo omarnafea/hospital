@@ -51,6 +51,9 @@ $clinics = $statement->fetchAll();
                     <th scope="col">#</th>
                     <th scope="col">Test Name</th>
                     <th scope="col">Price</th>
+                    <?php if(is_admin()){ ?>
+                        <th scope="col">Clinic</th>
+                    <?php }?>
                 </tr>
                 </thead>
                 <tbody>

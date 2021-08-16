@@ -6,6 +6,7 @@ if(!isset($_SESSION['user_id'])){
   exit();
 }
 include('../connect.php');
+include ('../include/functions/functions.php');
 $output = "";
 $query = "SELECT * FROM patients; "; // db query
 $statement = $con->prepare($query);  // prepare query
@@ -17,6 +18,11 @@ foreach($result as $row)
 {
 
     $have_insurance = $row['have_insurence'] == 1  ? 'Yes' : 'No';
+
+    $details = "";
+    if(!is_admin()){
+        $details = '<a href="../appointments/index.php?patient_id='.$row["id"].'"  class="btn btn-info mt-1"><i class="fa fa-info-circle"></i> Details</a>';
+    }
 
  $output .= '<tr>
                <td>'.$row['id'].'</td>
@@ -30,7 +36,7 @@ foreach($result as $row)
                <td><button type="button" name="update" id="'.$row["id"].'" class="btn btn-primary update">Edit</button></td>
                <td>
                <button type="button" name="action" id="'.$row["id"].'" class="btn btn-primary action">Action</button>
-               <a href="../appointments/index.php?patient_id='.$row["id"].'"  class="btn btn-info mt-1"><i class="fa fa-info-circle"></i> Details</a>
+              '.$details.'
                
                </td>
                

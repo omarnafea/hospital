@@ -37,7 +37,7 @@ include('../connect.php');
   </div>
   <div class="col-md-9">
     <h2 class="text-center">Manage Patients</h2>
-    <button type="button" id="add_button" data-toggle="modal" data-target="#patient_add_modal" class="btn btn-info btn-lg">
+    <button type="button" id="add_button" data-toggle="modal" data-target="#patient_add_modal" class="btn btn-info btn-lg d-none">
       Add Patient</button>
 
     <table id="patient_data" class="table table-bordered table-striped">
