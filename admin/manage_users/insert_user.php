@@ -8,6 +8,8 @@ if(!isset($_SESSION['user_id'])){
 }
 include('../connect.php');
 
+$clinic_id = $_POST['clinic_id'] === '-1' ? null : $_POST['clinic_id'];
+
 
 $statement = $con->prepare("
    INSERT INTO users (name, email,user_name,password,privilege_id , clinic_id) 
@@ -19,7 +21,7 @@ $statement = $con->prepare("
     ':user_name'       => $_POST["user_name"],
     ':password'        => sha1($_POST["password"]),
     ':privilege_id'    => $_POST["privilege_id"],
-    ':clinic_id'       => $_POST["clinic_id"]
+    ':clinic_id'       => $clinic_id
    )
   );
   if(!empty($result))

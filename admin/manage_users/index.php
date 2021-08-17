@@ -7,7 +7,8 @@ if(!isset($_SESSION['user_id'])){
 
 include('../connect.php');
 
-$statement = $con->prepare("select * from clinics");  // prepare query
+$statement = $con->prepare("select clinics.* from clinics
+where clinics.id NOT IN (SELECT users.clinic_id from users where users.clinic_id = clinics.id)");  // prepare query
 $statement->execute();
 $clinics = $statement->fetchAll();
 
@@ -58,7 +59,6 @@ $privileges = $statement->fetchAll();
        <th scope="col">Clinic</th>
        <th scope="col">Privilege</th>
        <th scope="col">Edit</th>
-       <th scope="col">Action</th>
       </tr>
      </thead>
      <tbody>
@@ -93,10 +93,23 @@ $privileges = $statement->fetchAll();
 
       <div class="form-group">
         <label> Password</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Enter user password" required>
+        <input type="password" class="form-control" id="password"  autocomplete="new-password" name="password" placeholder="Enter user password" required>
       </div>
 
+
         <div class="form-group">
+            <label> Privilege</label>
+
+            <select class="form-control" id="privilege_id" name="privilege_id" title="clinic" onchange="onPrevChanged()">
+                <option value="-1">Select Privilege</option>
+                <?php
+                foreach ($privileges as $privilege){?>
+                    <option value="<?=$privilege['id']?>"><?=$privilege['privilege']?></option>
+                <?php } ?>
+            </select>
+        </div>
+
+        <div class="form-group clinic-id-form d-none">
             <label> Clinic</label>
 
             <select class="form-control" id="clinic_id" name="clinic_id" title="clinic">
@@ -108,22 +121,11 @@ $privileges = $statement->fetchAll();
             </select>
         </div>
 
-        <div class="form-group">
-            <label> Privilege</label>
 
-            <select class="form-control" id="privilege_id" name="privilege_id" title="clinic">
-                <option value="-1">Select Privilege</option>
-                <?php
-                foreach ($privileges as $privilege){?>
-                    <option value="<?=$privilege['id']?>"><?=$privilege['privilege']?></option>
-                <?php } ?>
-            </select>
-        </div>
 
-     
     </div>
     <div class="modal-footer">
-     <input type="hidden" name="m_id" id="m_id" />
+     <input type="hidden" name="user_id" id="edit_user_id" />
      <input type="submit" name="action"  class="btn btn-success" value="Add" />
      <button type="button" class="btn btn-default close_btn" data-dismiss="modal">Close</button>
     </div>
@@ -132,44 +134,60 @@ $privileges = $statement->fetchAll();
  </div>
 </div>
 
-
-
-  
 <div id="user_edit_modal" class="modal fade">
  <div class="modal-dialog">
   <form method="post" id="user_edit_form" enctype="multipart/form-data">
    <div class="modal-content">
     <div class="modal-header">
+
      <h4 class="modal-title">Edit User</h4>
     </div>
     <div class="modal-body">
      <div class="form-group">
-        <label> First Name</label>
-        <input type="Text" class="form-control" id="edit_first_name" name="first_name" placeholder="Enter user first name" required>
+        <label> Name</label>
+        <input type="Text" class="form-control" id="edit_name" name="name" placeholder="Enter name" required>
       </div>
-      <div class="form-group">
-        <label> Last Name</label>
-        <input type="Text" class="form-control" id="edit_last_name" name="last_name" placeholder="Enter user last name" required>
-      </div>
+
       <div class="form-group">
         <label> User Name</label>
         <input type="Text" class="form-control" id="edit_user_name" name="user_name" placeholder="Enter user username" required>
       </div>
+
+        <div class="form-group">
+            <label> Email</label>
+            <input type="Text" class="form-control" id="edit_email" name="email" autocomplete="new-password" placeholder="Enter user email" required>
+        </div>
+
       <div class="form-group">
         <label> Password</label>
-        <input type="password" class="form-control" id="edit_password" name="password" placeholder="Leave Blank in you don't wont to change" required>
-      </div>
+          <input type="text" style="display:none;">
 
-      <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="user_type" id="edit_normal_user" value="normal">
-      <label class="form-check-label" >normal user</label>
-    </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="user_type" id="edit_admin_user" value="admin" >
-      <label class="form-check-label" >Adminstrator</label>
+          <input type="password" class="form-control" id="edit_password" name="password" autocomplete="new-password" placeholder="Leave empty if you don't need to change it " >
     </div>
 
-     
+
+        <div class="form-group">
+            <label> Privilege</label>
+
+            <select class="form-control" id="edit_privilege_id" name="privilege_id" title="clinic" onchange="onEditPrevChanged()">
+                <option value="-1">Select Privilege</option>
+                <?php
+                foreach ($privileges as $privilege){?>
+                    <option value="<?=$privilege['id']?>"><?=$privilege['privilege']?></option>
+                <?php } ?>
+            </select>
+        </div>
+
+        <div class="form-group edit-clinic-id-form d-none">
+            <label> Clinic</label>
+
+            <select class="form-control" id="edit_clinic_id" name="clinic_id" title="clinic">
+
+            </select>
+        </div>
+
+
+
     </div>
     <div class="modal-footer">
      <input type="hidden" name="user_id" id="edit_user_id" />
@@ -180,6 +198,9 @@ $privileges = $statement->fetchAll();
   </form>
  </div>
 </div>
+
+
+
 
     </div>
 

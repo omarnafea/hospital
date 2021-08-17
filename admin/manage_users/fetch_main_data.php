@@ -9,7 +9,7 @@ include('../connect.php');
 $output = "";
 $query = "SELECT users.* , privileges.privilege as privilege , clinics.name as clinic 
 FROM users 
-INNER JOIN clinics on clinics.id = users.clinic_id
+LEFT JOIN clinics on clinics.id = users.clinic_id
 INNER JOIN privileges on privileges.id = users.privilege_id
 
 ; "; // db query
@@ -30,20 +30,6 @@ foreach($result as $row)
                <td>'.$row['privilege'].'</td>
                <td><button type="button" name="update" id="'.$row["id"].'" class="btn btn-primary update">Edit</button></td>
                ';
-
-
-               if($row['is_active']== 1){
-                $output .= ' <td><button type="button" name="deactive" id="'.$row["id"].'" class="btn btn-danger deactive">DeActivate</button></td>';
-
-               }else{
-
-                 $output .= ' <td><button type="button" name="active" id="'.$row["id"].'" class="btn btn-success
-                 active">Activate</button></td>';
-
-               }
-
-
-          
 
                
  $output .= '</tr>';

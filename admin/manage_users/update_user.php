@@ -6,23 +6,34 @@ if(!isset($_SESSION['user_id'])){
 }
 include('../connect.php');
 
+$clinic_id = $_POST['clinic_id'] === '-1' ? null : $_POST['clinic_id'];
+
 $pass='';
-  
- $statement = $con->prepare(
-   "UPDATE users 
-    SET first_name = :first_name,last_name = :last_name ,user_name = :user_name ,password = :password,type=:type
-    WHERE user_id = :user_id");
-  $result = $statement->execute(
-   array(
-    ':first_name'        => $_POST["first_name"],
-    ':last_name'         => $_POST["last_name"],
+
+$params =    array(
+    ':name'              => $_POST["name"],
+    ':email'             => $_POST["email"],
     ':user_name'         => $_POST["user_name"],
-    ':last_name'         => $_POST["last_name"],
-    ':password'          => sha1($_POST["password"]),
-    ':type'              => $_POST["user_type"],
-    ':user_id'           => $_POST["user_id"]
-   )
-  );
+    ':clinic_id'         => $clinic_id,
+    ':privilege_id'      => $_POST["privilege_id"],
+    ':user_id'           => $_POST["user_id"],
+
+
+);
+
+if(trim($_POST['password'])  !== ""){
+
+    $pass='password = :password,';
+
+    $params[':password'] = sha1($_POST["password"]);
+}
+
+
+$statement = $con->prepare(
+   "UPDATE users 
+    SET name = :name,email = :email ,user_name = :user_name ,{$pass}clinic_id=:clinic_id,privilege_id=:privilege_id
+    WHERE id = :user_id");
+  $result = $statement->execute($params);
   if(!empty($result))
   {
    echo 'User Data Updated';

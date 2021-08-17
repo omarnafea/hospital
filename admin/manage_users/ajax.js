@@ -42,7 +42,7 @@ $(window).resize(function() {
  $(document).on('submit', '#user_add_form', function(event){
   event.preventDefault();
 
-  if($("#clinic_id").val() === '-1'){
+  if($("#clinic_id").val() === '-1' && $("#privilege_id").val() === '1' ){
    alert('Please select a clinic');
    return false;
   }
@@ -63,7 +63,7 @@ $(window).resize(function() {
      $('#user_add_modal').modal('hide');
        $('#user_add_form')[0].reset();
      load_main_data();
-     
+        $(".clinic-id-form").addClass('d-none');
     }
    });
  
@@ -79,20 +79,32 @@ $(window).resize(function() {
    dataType:"json",
    success:function(data)
    {
+    var user = data.user;
     $('#user_edit_modal').modal('show');
-    $('#user_edit_modal #edit_first_name').val(data.first_name);
-    $('#user_edit_modal #edit_last_name').val(data.last_name);
-    $('#user_edit_modal #edit_user_name').val(data.user_name);
-   
-    $('#user_edit_modal #edit_user_id').val(data.user_id);
-     $('#user_edit_modal #edit_password').val(data.password);
+    $('#user_edit_modal #edit_name').val(user.name);
+    $('#user_edit_modal #edit_user_name').val(user.user_name);
+    $('#user_edit_modal #edit_email').val(user.email);
+    $('#user_edit_modal #edit_user_id').val(user_id);
 
-          if (data.user_type =='admin') {
-            
-            $("#user_edit_modal #edit_admin_user").attr('checked', 'checked');
-          }else{
-             $("#user_edit_modal #edit_normal_user").attr('checked', 'checked');
-          }
+     $('#user_edit_modal #edit_privilege_id').val(user.privilege_id);
+
+     var clinics_options = `<option value="-1">Select Clinic</option>`;
+     var clinics = data.clinics;
+     if(user.privilege_id == '1'){
+
+         clinics_options += `<option selected value="${user.clinic_id}">${user.clinic_name}</option>`;
+      for(let i = 0 ; i<clinics.length ; i++){
+
+          clinics_options += `<option  value="${clinics[i].id}">${clinics[i].name}</option>`;
+      }
+
+      $(".edit-clinic-id-form").removeClass('d-none');
+      $("#edit_clinic_id").val(data.clinic_id);
+     }else{
+         $(".edit-clinic-id-form").addClass('d-none');
+     }
+
+     $("#edit_clinic_id").html(clinics_options);
     
    }
   })
@@ -110,7 +122,7 @@ $(window).resize(function() {
     processData:false,
     success:function(data)
     {
-     
+     alert(data);
     $('#user_edit_modal').modal('hide');
     load_main_data();
     }
@@ -153,3 +165,11 @@ $(window).resize(function() {
  
  
 });
+
+function onPrevChanged() {
+    if($("#privilege_id").val() == '1'){
+     $(".clinic-id-form").removeClass('d-none');
+    }else{
+        $(".clinic-id-form").addClass('d-none');
+    }
+}
