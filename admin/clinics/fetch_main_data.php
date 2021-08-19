@@ -14,16 +14,18 @@ $statement->execute();
 $result = $statement->fetchAll();
 
 
+$i = 1;
+
 foreach($result as $row)
 {
  
  $output .= '<tr>
-               <td>'.$row['id'].'</td>
+               <td>'.$i.'</td>
                <td>'.$row['name'].'</td>
                <td><button type="button" name="update" id="'.$row["id"].'" class="btn btn-primary update">Edit</button></td>
                ';
-               
  $output .= '</tr>';
+ $i++;
            }
 
 echo $output;

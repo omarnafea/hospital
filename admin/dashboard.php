@@ -28,7 +28,7 @@ include "../include/functions/functions.php"
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<script src="layout/js/jquery-3.4.1.min"></script>
+	<script src="../layout/js/jquery-3.4.1.min"></script>
   <link rel="stylesheet" href="layout/css/bootstrap.min.css"/>
   <script src="https://kit.fontawesome.com/9bb4e0493f.js" crossorigin="anonymous"></script>
   <script src="layout/js/bootstrap.min.js"></script>
@@ -52,13 +52,17 @@ include "../include/functions/functions.php"
       <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
-     
+        <li class="nav-item active">
+        <a class="nav-link" href="#"> <?php echo $_SESSION['username'];?></a>
+      </li>
+        <!--
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
          <?php
         
          echo $_SESSION['username'];?>
         </a>
+
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
             <?php if(is_admin()){?>
@@ -69,7 +73,7 @@ include "../include/functions/functions.php"
           <a class="dropdown-item" href="logout.php">LogOut</a>
         </div>
       </li>
-     
+     -->
     </ul>
     
   </div>

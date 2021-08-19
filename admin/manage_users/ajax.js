@@ -173,3 +173,11 @@ function onPrevChanged() {
         $(".clinic-id-form").addClass('d-none');
     }
 }
+
+function onEditPrevChanged() {
+    if($("#edit_privilege_id").val() == '1'){
+        $(".edit-clinic-id-form").removeClass('d-none');
+    }else{
+        $(".edit-clinic-id-form").addClass('d-none');
+    }
+}
