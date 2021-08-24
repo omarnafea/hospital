@@ -2,23 +2,12 @@
 session_start();
 $_SESSION['page']='appointment';
 
-
-
 include '../connect.php';
-
-
-
-
-
-
 
 $statement = $con->prepare("SELECT clinics.* , users.name as doctor 
                               FROM clinics inner join  users on users.clinic_id = clinics.id and users.privilege_id = 1");
 $statement->execute();
 $clinics = $statement->fetchAll();
-
-
-
 
 ?>
 <!DOCTYPE html>
@@ -347,25 +336,25 @@ $clinics = $statement->fetchAll();
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="mb-0"> ID Number</label>
-                        <input type="number" class="form-control" id="login_id_number" name="id_number" placeholder="Enter ID Number" required>
+                        <input type="number" class="form-control" id="signup_id_number" name="id_number" placeholder="Enter ID Number" required>
                     </div>
                     <div class="form-group">
                         <label class="mb-0"> Full Name</label>
-                        <input type="text" class="form-control"  name="name" placeholder="Enter Your Full Name" required>
+                        <input type="text" class="form-control"  id="signup_name" name="name" placeholder="Enter Your Full Name" required>
                     </div>
 
                     <div class="form-group">
                         <label class="mb-0"> Mobile</label>
-                        <input type="number" class="form-control"  name="mobile" placeholder="Enter Your Mobile" required>
+                        <input type="number" class="form-control" id="signup_mobile" name="mobile" placeholder="Enter Your Mobile" required>
                     </div>
 
                     <div class="form-group">
                         <label class="mb-0"> Password</label>
-                        <input type="password" class="form-control"  name="password" placeholder="Enter Password" required>
+                        <input type="password" class="form-control" id="signup_password"  name="password" placeholder="Enter Password" required>
                     </div>
                     <div class="form-group">
                         <label class="mb-0"> Confirm Password</label>
-                        <input type="password" class="form-control"  name="confirm_password" placeholder="Confirm Password" required>
+                        <input type="password" class="form-control"  id="signup_confirm_password" name="confirm_password" placeholder="Confirm Password" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -416,6 +405,58 @@ if(!isset($_SESSION['patient_id'])){?>
         });
         $(document).on('submit', '#signup_form', function(event){
             event.preventDefault();
+
+            var mobile_number = $("#signup_mobile").val().trim();
+            var id_number = $("#signup_id_number").val().trim();
+            var password = $("#signup_password").val().trim();
+            var confirm_password = $("#signup_confirm_password").val().trim();
+
+            if($("#signup_name").val().trim() === ''){
+                alert("Please enter your full name");
+                return false;
+            }
+            if(mobile_number === ''){
+                alert("Please enter your mobile number");
+                return false;
+            }
+            if(id_number === ''){
+                alert("Please enter your id number");
+                return false;
+            }
+            if(password === ''){
+                alert("Please enter you password");
+                return false;
+            }
+            if(confirm_password === ''){
+                alert("Please confirm your password");
+                return false;
+            }
+
+
+            if(mobile_number.length < 10){
+                alert('please enter a valid mobile number');
+                return false;
+            }
+            if(id_number.length < 10){
+                alert('please enter a valid id number');
+                return false;
+            }
+
+            if(password.length < 8 ){
+                alert('please enter a strong password');
+                return false;
+            }
+
+            if(password !== confirm_password){
+                alert('Password and confirm password not matches');
+                return false;
+            }
+
+
+
+
+
+
             $.ajax({
                 url:"../api/sign_up.php",
                 method:'POST',
@@ -425,6 +466,7 @@ if(!isset($_SESSION['patient_id'])){?>
                 dataType  : 'json',
                 success:function(data)
                 {
+                    console.log(data);
                     if(data.success){
                        window.location.reload();
                     }else{
