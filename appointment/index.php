@@ -13,7 +13,7 @@ $clinics = $statement->fetchAll();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Contact</title>
+	<title>Appointments</title>
 	<meta charset="utf-8">
 	<link rel="icon" href="../layout.img/logo.jpeg">
    <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -60,6 +60,7 @@ $clinics = $statement->fetchAll();
             <th scope="col">From Time</th>
             <th scope="col">To Time</th>
             <th scope="col">Tests</th>
+            <th scope="col">Notes</th>
             <th scope="col">Status</th>
             <th scope="col">Action</th>
         </tr>
@@ -295,6 +296,22 @@ $clinics = $statement->fetchAll();
 </div>
 
 
+
+<div id="result_modal" class="modal fade">
+    <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tests Result</h4>
+                </div>
+                <div class="modal-body test-result-div">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default close_btn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+    </div>
+</div>
 
 <div id="login_modal" class="modal fade">
     <div class="modal-dialog">

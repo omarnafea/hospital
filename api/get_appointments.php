@@ -41,6 +41,24 @@ if(isset($patient_id)){
         foreach ($data as $row){
             $test = isset($row['test_name']) ? $row['test_name'] : "N/A";
 
+            $tests_query =  "Select appointment_tests.*  , tests.name as test_name 
+              from appointment_tests
+              inner join tests on  tests.id = appointment_tests.test_id 
+               WHERE  appointment_id= ? 
+              ";
+
+            $check_tests = $con->prepare($tests_query);
+            $result = $check_tests->execute([$row['id']]);
+            $tests = $check_tests->fetchAll(PDO::FETCH_ASSOC);
+
+            $tests_names = "N/A";
+            $show_result_btn = "";
+            if(!empty($tests)){
+                $tests_names = implode(',' ,array_column($tests , 'test_name') );
+                $show_result_btn =  '<button type="button"  class="btn btn-info"  onclick="show_result('.$row["id"].')">Show tests result</button>';
+            }
+
+
             $is_canceled = $row['is_canceled'] == '1';
             $is_confirmed = $row['is_confirmed'] == '1';
             $status = '<span class="text-warning">Need to Confirm</span>';
@@ -52,7 +70,6 @@ if(isset($patient_id)){
             if($is_canceled){
                 $status = "<span class='text-danger'>Canceled</span>";
             }
-
 
 
             $cancel_btn = ' <button type="button"  class="btn btn-danger cancel-appointment"  onclick="cancel_appointment('.$row["id"].')">Cancel</button>';
@@ -68,11 +85,13 @@ if(isset($patient_id)){
                <td>'.$row['appointment_date'].'</td>
                <td>'.$row['from_time'].'</td>
                <td>'.$row['to_time'].'</td>
-               <td>'.$test.'</td>
+               <td>'.$tests_names.'</td>
+               <td>'.$row['notes'].'</td>
                <td>'.$status.'</td>
                <td>
                    <button type="button"  class="btn btn-primary update-appointment" onclick="update_appointment('.$row["id"].')">Edit</button>
                    '.$cancel_btn.'
+                   '.$show_result_btn.'
                </td>';
             $i ++;
         }

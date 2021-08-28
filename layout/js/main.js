@@ -260,6 +260,49 @@ function cancel_appointment(id , canceled = 1){
 
 }
 
+function show_result(id){
+    $.ajax({
+        url:"../api/get_appointment_test_result.php",
+        method:'POST',
+        data:{id : id },
+        dataType  : 'json',
+        success:function(data)
+        {
+            $(".test-result-div").html('');
+
+            if(data.success){
+
+                let modal_html = ``;
+                const result = data.data;
+                for (let i = 0; i < result.length ; i++){
+
+
+                    modal_html +=
+                        `
+                         <div class="mb-2">
+                         
+                         <h3 class="text-info">${result[i].test_name}</h3>
+                          <p class="text-info mb-1">- Result :  ${result[i].result}</p>
+                          <a class="btn btn-info" href="../uploads/${result[i].attachment}" target="_blank">
+                          <i class="fa fa-paperclip"></i> Attachment
+                          
+                          </a>
+                          </div>
+                          
+                        `;
+                }
+
+                $("#result_modal").modal("show");
+                $(".test-result-div").html(modal_html);
+
+
+            }else{
+                alert(data.message);
+            }
+        }
+    });
+
+}
 
 $(document).on('submit', '#update_form', function(event){
     event.preventDefault();
