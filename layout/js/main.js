@@ -274,22 +274,25 @@ function show_result(id){
 
                 let modal_html = ``;
                 const result = data.data;
+                let test_result = ``;
+                let test_attachment = ``;
                 for (let i = 0; i < result.length ; i++){
 
+
+                    test_result = result[i].result == null ? "No Result Yet"  : result[i].result;
+                    test_attachment = result[i].attachment == null  ? "No Attachment Yet" :
+                        `<a class="btn btn-info" href="../uploads/${result[i].attachment}" target="_blank">
+                          <i class="fa fa-paperclip"></i> Attachment
+                          
+                          </a>`;
 
                     modal_html +=
                         `
                          <div class="mb-2">
-                         
                          <h3 class="text-info">${result[i].test_name}</h3>
-                          <p class="text-info mb-1">- Result :  ${result[i].result}</p>
-                          <a class="btn btn-info" href="../uploads/${result[i].attachment}" target="_blank">
-                          <i class="fa fa-paperclip"></i> Attachment
-                          
-                          </a>
-                          </div>
-                          
-                        `;
+                          <p class="text-info mb-1">- Result :  ${test_result}</p>
+                          ${test_attachment}
+                          </div>`;
                 }
 
                 $("#result_modal").modal("show");
