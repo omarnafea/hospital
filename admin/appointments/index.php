@@ -9,7 +9,7 @@ include('../connect.php');
 //include ('../include/functions/functions.php');
 
 $statement = $con->prepare("SELECT clinics.* , users.name as doctor 
-                              FROM clinics inner join  users on users.clinic_id = clinics.id and users.privilege_id = 1");
+                              FROM clinics inner join  users on users.clinic_id = clinics.id and users.privilege_id = 1 AND clinics.is_active = 1");
 $statement->execute();
 $clinics = $statement->fetchAll();
 

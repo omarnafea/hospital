@@ -45,6 +45,7 @@ include('../connect.php');
       <tr>
        <th scope="col">#</th>
        <th scope="col">Clinic Name</th>
+       <th scope="col">Active</th>
       </tr>
      </thead>
      <tbody>

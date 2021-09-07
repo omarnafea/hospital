@@ -20,14 +20,15 @@ $page=$_SESSION['page'];
             <li class="list-group-item pagelink <?php if($page=='clinics'){echo 'active';}?>">
                 <a href="../clinics"> <i class="fas fa-sitemap"></i> Clinics</a>
             </li>
-            <li class="list-group-item pagelink <?php if($page=='patients'){echo 'active';}?>">
-                <a href="../patients"> <i class="fas fa-user"></i> patients</a>
-            </li>
+
         <?php } ?>
 
         <?php if(is_admin() || is_doctor()){?>
                 <li class="list-group-item pagelink <?php if($page=='tests'){echo 'active';}?>">
                     <a href="../test"> <i class="fas fa-user"></i> Tests</a>
+                </li>
+                <li class="list-group-item pagelink <?php if($page=='patients'){echo 'active';}?>">
+                    <a href="../patients"> <i class="fas fa-user"></i> patients</a>
                 </li>
         <?php }?>
 

@@ -96,17 +96,14 @@ include "../include/functions/functions.php"
 
               <li class="list-group-item pagelink"> <a href="manage_users"><i class="fas fa-user"></i> Manage Users</a></li>
               <li class="list-group-item pagelink"> <a href="clinics"><i class="fas fa-sitemap"></i> Clinics</a></li>
-              <li class="list-group-item pagelink"> <a href="patients"><i class="fas fa-user"></i> Patients</a></li>
 
           <?php } ?>
 
           <?php if(is_admin() || is_doctor()){?>
               <li class="list-group-item pagelink"> <a href="test"><i class="fas fa-sitemap"></i> Tests</a></li>
+              <li class="list-group-item pagelink"> <a href="patients"><i class="fas fa-user"></i> Patients</a></li>
+
           <?php }?>
-
-
-
-
 
           <?php
           if(!is_admin()){?>

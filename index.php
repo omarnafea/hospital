@@ -3,14 +3,6 @@
 
 include 'connect.php';
 
-$statement = $con->prepare("SELECT clinics.* , users.name as name 
-                              FROM clinics inner  join  users on users.clinic_id = clinics.id and users.privilege_id = 1");
-$statement->execute();
-$clinics = $statement->fetchAll();
-
-$statement = $con->prepare("SELECT * from tests");
-$statement->execute();
-$tests = $statement->fetchAll();
 
 
 ?>

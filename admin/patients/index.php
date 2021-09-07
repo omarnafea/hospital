@@ -51,8 +51,12 @@ include('../connect.php');
        <th scope="col">ID Number</th>
        <th scope="col">Gender</th>
        <th scope="col">Have Insurance</th>
-       <th scope="col">Edit</th>
-       <th scope="col">Action</th>
+
+        <?php
+        if(is_doctor()){?>
+            <th scope="col">Details</th>
+
+        <?php } ?>
       </tr>
      </thead>
      <tbody>

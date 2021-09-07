@@ -9,7 +9,7 @@ $_SESSION['page']='tests';
 
 include('../connect.php');
 
-$query = "SELECT * FROM clinics; "; // db query
+$query = "SELECT * FROM clinics where is_active = 1; "; // db query
 $statement = $con->prepare($query);  // prepare query
 $statement->execute();
 $clinics = $statement->fetchAll();

@@ -9,14 +9,25 @@ include('../connect.php');
 include ('../include/functions/functions.php');
 $output = "";
 $query = "SELECT * FROM patients; "; // db query
+$params = [];
+if(is_doctor()){
+    $clinic_id = get_current_user_data()['clinic_id'];
+    $params = [$clinic_id];
+    $query = "SELECT patients.* FROM  patients
+              INNER  JOIN appointments ON appointments.clinic_id = ? group by patients.id; "; // db query
+
+}
+
 $statement = $con->prepare($query);  // prepare query
-$statement->execute();
+$statement->execute($params);
 $result = $statement->fetchAll();
 
 
+$i = 0;
 foreach($result as $row)
 {
 
+    $i++;
     $have_insurance = $row['have_insurence'] == 1  ? 'Yes' : 'No';
 
     $details = "";
@@ -25,7 +36,7 @@ foreach($result as $row)
     }
 
  $output .= '<tr>
-               <td>'.$row['id'].'</td>
+               <td>'.$i.'</td>
                <td>'.$row['name'].'</td>
                <td>'.$row['mobile'].'</td>
                <td>'.$row['place_of_living'].'</td>
@@ -33,9 +44,7 @@ foreach($result as $row)
                <td>'.$row['id_number'].'</td>
                <td>'.$row['gender'].'</td>
                <td>'.$have_insurance.'</td>
-               <td><button type="button" name="update" id="'.$row["id"].'" class="btn btn-primary update">Edit</button></td>
                <td>
-               <button type="button" name="action" id="'.$row["id"].'" class="btn btn-primary action">Action</button>
               '.$details.'
                
                </td>
