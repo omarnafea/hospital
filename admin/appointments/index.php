@@ -122,9 +122,6 @@ if(isset($_GET['patient_id'])){
             <button class="btn btn-primary my-2" onclick="go_to_new()">New Appointment</button>
 
 
-
-            <?php
-            if(!isset($patient_details)){ ?>
                 <div class="form-inline my-2">
                     <div class="form-group mx-1" >
                         <input type="date" class="form-control" title="from date" id="filter_from_date">
@@ -135,7 +132,6 @@ if(isset($_GET['patient_id'])){
                     <button class="btn btn-primary mx-1" type="button" id="filter_date" onclick="filter_date()">Filter </button>
                 </div>
 
-           <?php }?>
 
 
 
@@ -493,6 +489,15 @@ if(isset($_GET['patient_id'])){
 <script>
 
     get_appointments(<?=$patient_id?>);
+
+
+
+    function filter_date(){
+
+        var from_date = $("#filter_from_date").val();
+        var to_date = $("#filter_to_date").val();
+        get_appointments(<?=$patient_id?> ,from_date ,  to_date);
+    }
 
     <?php
     if(isset($patient_details)){?>

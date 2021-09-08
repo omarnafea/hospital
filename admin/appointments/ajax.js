@@ -222,12 +222,6 @@ function search_by_id_number(){
     }
 }
 
-function filter_date(){
-
-    var from_date = $("#filter_from_date").val();
-    var to_date = $("#filter_to_date").val();
-    get_appointments(null ,from_date ,  to_date);
-}
 function get_appointments(id_number = null , from_date = null , to_date = null){
 
     var data = {patient_id : id_number , from_date :from_date , to_date : to_date };
