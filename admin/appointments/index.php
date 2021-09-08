@@ -23,7 +23,7 @@ $statement = $con->prepare("SELECT * from patients");
 $statement->execute();
 $patients = $statement->fetchAll();
 
-$patient_id_number = null;
+$patient_id = null;
 
 $patient = null;
 
@@ -31,7 +31,7 @@ if(isset($_GET['patient_id'])){
     $statement = $con->prepare("SELECT * from patients where id = ?");
     $statement->execute([$_GET['patient_id']]);
     $patient_details = $statement->fetch();
-    $patient_id_number = $patient_details['id_number'];
+    $patient_id = $_GET['patient_id'];
 
 }
 
@@ -492,7 +492,7 @@ if(isset($_GET['patient_id'])){
 <script  src="ajax.js"></script>
 <script>
 
-    get_appointments(<?=$patient_id_number?>);
+    get_appointments(<?=$patient_id?>);
 
     <?php
     if(isset($patient_details)){?>

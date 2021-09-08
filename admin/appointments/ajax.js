@@ -230,7 +230,7 @@ function filter_date(){
 }
 function get_appointments(id_number = null , from_date = null , to_date = null){
 
-    var data = {id_number : id_number , from_date :from_date , to_date : to_date };
+    var data = {patient_id : id_number , from_date :from_date , to_date : to_date };
     $.ajax({
         url:"get_appointments.php",
         method:'POST',
